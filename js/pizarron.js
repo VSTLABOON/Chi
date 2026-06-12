@@ -187,17 +187,17 @@ function initPizarron() {
     "Guau. Si un dinosaurio te da lata, le ladro hasta que se extinga de nuevo."
   ];
 
-  const mosaPhrases = [
-    "Glup. El oceano Tethys es grande, pero no tanto como tu paciencia en el aula.",
-    "Glup. ¿Sabias que los mosasaurus no somos dinosaurios? Somos lagartos marinos super listos.",
-    "Maestra Samara, nado desde el Cretacico solo para escuchar tus explicaciones.",
-    "Glup. Si el salon se inunda de tareas, yo te ayudo a nadar a salvo.",
-    "Un mosasaurus gigante con un corazon blando por su maestra favorita.",
-    "Glup. ¿Puedo hacer el examen bajo el agua?",
-    "Navegue a traves del impacto del meteorito para traerte esta carta.",
-    "Glup. Mi amor por tus clases tiene profundidad oceanica.",
-    "Nadar en el Cretacico era divertido, pero estar en tu clase en Monterrey es mucho mejor.",
-    "Glup. Si un dinosaurio terrestre se mete contigo, lo jalo al fondo del mar de un aletazo."
+  const pezPhrases = [
+    "Glup. El oceano es inmenso, pero no tanto como tu paciencia en el aula.",
+    "Glup. ¿Sabias que los peces flotamos mejor cuando escuchamos tus clases?",
+    "Maestra Samara, nado contra la corriente solo para escuchar tus explicaciones.",
+    "Glup. Si el salon se inunda de tareas, yo te enseño a respirar bajo el agua.",
+    "Un pececito con un corazon gigante por su maestra favorita.",
+    "Glup. ¿Puedo responder las preguntas haciendo burbujas?",
+    "Esquive redes y anzuelos para traerte este mensaje de cariño.",
+    "Glup. Mi aprecio por tus clases tiene profundidad marina.",
+    "Nadar en el coral es divertido, pero estar en tu salon en Monterrey es mucho mejor.",
+    "Glup. Si un dinosaurio terrestre te molesta, le salpicare agua con mi colita."
   ];
 
   let bubbleTimeout = null;
@@ -217,7 +217,7 @@ function initPizarron() {
     // Seleccionar frases segun mascota activa
     let phrases = polloPhrases;
     if (activeMascot === 'perro') phrases = perroPhrases;
-    else if (activeMascot === 'mosa') phrases = mosaPhrases;
+    else if (activeMascot === 'pez') phrases = pezPhrases;
 
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     polloBubble.textContent = randomPhrase;
@@ -280,7 +280,7 @@ function initPizarron() {
       // Mostrar frase de aterrizaje divertido segun la mascota activa
       let landingText = "¡Aterrizaje perfecto!";
       if (activeMascot === 'perro') landingText = "¡Llegué de un salto!";
-      else if (activeMascot === 'mosa') landingText = "¡Chapuzón completado!";
+      else if (activeMascot === 'pez') landingText = "¡Chapuzón completado!";
       
       polloBubble.textContent = landingText;
       polloBubble.classList.add('open');
@@ -322,7 +322,7 @@ function initPizarron() {
           if (mascotImg) {
             if (mascot === 'pollo') mascotImg.src = 'images/pollo_sticker.svg';
             else if (mascot === 'perro') mascotImg.src = 'images/perro_salchicha.svg';
-            else if (mascot === 'mosa') mascotImg.src = 'images/mosa_mascota.svg';
+            else if (mascot === 'pez') mascotImg.src = 'images/pez_mascota.svg';
           }
           
           // Pequeño efecto visual de cambio (escala)
@@ -335,7 +335,7 @@ function initPizarron() {
           let introText = "Listo para aprender.";
           if (mascot === 'pollo') introText = "Listo para aprender.";
           else if (mascot === 'perro') introText = "Guau. Listo para jugar.";
-          else if (mascot === 'mosa') introText = "Glup. Listo para nadar.";
+          else if (mascot === 'pez') introText = "Glup. Listo para nadar.";
           
           polloBubble.textContent = introText;
           polloBubble.classList.add('open');

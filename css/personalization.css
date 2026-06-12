@@ -350,25 +350,25 @@
 
 /* ─── MASCOT PEQUEÑA BURBUJA (POLLITO CAMINANTE) ──────── */
 .pollo-sticker-wrap {
-  position: fixed !important;
-  bottom: 1.5rem !important; /* Flota en la parte inferior de la ventana */
-  right: auto !important;
+  position: fixed;
+  bottom: 1.5rem;
+  right: auto;
   left: 1.5rem;
-  width: 75px !important;
-  height: 75px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  width: 75px;
+  height: 75px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 !important;
-  animation: polloWalk 24s linear infinite !important; /* Caminata horizontal un poco más lenta */
-  overflow: visible !important;
-  z-index: 9999 !important; /* Siempre encima del resto del contenido */
+  padding: 0;
+  animation: polloWalk 24s linear infinite;
+  overflow: visible;
+  z-index: 9999;
   cursor: pointer;
   box-sizing: border-box;
-  touch-action: none !important; /* Evita scroll al arrastrar en móviles */
+  touch-action: none;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -845,11 +845,11 @@
     font-size: 1.15rem !important;
   }
   .pollo-sticker-wrap {
-    width: 60px !important;
-    height: 60px !important;
-    bottom: 0.8rem !important; /* Margen seguro del borde inferior móvil */
-    left: 0.8rem !important;
-    animation: polloWalkMobile 20s linear infinite !important;
+    width: 60px;
+    height: 60px;
+    bottom: 0.8rem;
+    left: 0.8rem;
+    animation: polloWalkMobile 20s linear infinite;
   }
   .pollo-bubble {
     width: 130px !important;
@@ -863,106 +863,123 @@
   50%      { left: calc(100% - 60px - 0.8rem); }
 }
 
-/* Estilización del borrador de texto */
+/* Estilización realista del borrador de pizarrón (madera y fieltro) */
 .borrador {
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--crema);
-  background: rgba(255, 255, 255, 0.12);
-  padding: 3px 10px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: background 0.3s, transform 0.2s, border-color 0.3s;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FFEEDD;
+  background: linear-gradient(180deg, #A0522D 0%, #8B4513 100%); /* Wood blocks */
+  padding: 4px 14px;
+  border-radius: 5px 5px 2px 2px;
+  border: 1px solid #5C2E0B;
+  border-bottom: 6px solid #3A3A3A; /* Grey felt bottom */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: all 0.2s ease;
   user-select: none;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  display: inline-block;
 }
 
 .borrador:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-1px);
+  background: linear-gradient(180deg, #CD853F 0%, #8B4513 100%);
+  border-color: #70380D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 .borrador:active {
-  transform: translateY(0);
+  transform: translateY(2px);
+  border-bottom-width: 2px; /* Compresses felt on click */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ─── FLOAT MENÚ SELECTOR DE MASCOTAS ────────────────── */
+/* ─── FLOAT MENÚ SELECTOR DE MASCOTAS (ESTILO ETIQUETA VINTAGE DE PARGAMINO) ─── */
 .mascot-selector {
   position: fixed;
-  bottom: 7.2rem; /* Justo arriba de la mascota */
+  bottom: 7.2rem;
   left: 1.5rem;
   z-index: 9998;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  background: #FAF6EE; /* Parchment cream paper tag */
+  border: 1.5px dashed #D3C2B0; /* Scrapbook stitching style */
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: -4px 8px 25px rgba(90, 18, 40, 0.12);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 1s ease, visibility 1s ease;
+  transition: opacity 1s ease, visibility 1s ease, transform 0.3s ease;
+  transform: translateY(10px);
 }
 
 .mascot-selector.visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transform: translateY(0);
 }
 
 .mascot-sel-btn {
-  background: rgba(43, 43, 43, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  color: var(--crema);
+  background: #FFFFFF;
+  border: 1px solid #E6DCD0;
+  color: #5A4E40;
   font-family: 'Lato', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
+  font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 4px 12px;
-  border-radius: 20px;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
   user-select: none;
 }
 
 .mascot-sel-btn:hover {
-  background: var(--guinda);
-  border-color: var(--dorado);
+  background: var(--guinda-light);
+  border-color: var(--guinda-light);
+  color: #FFFFFF;
   transform: translateX(4px);
 }
 
 .mascot-sel-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.96) translateX(4px);
 }
 
 .mascot-sel-btn.active {
   background: var(--guinda);
   border-color: var(--dorado);
   color: var(--dorado);
-  font-weight: bold;
-  box-shadow: 0 0 10px rgba(232, 201, 138, 0.3);
+  box-shadow: 0 3px 8px rgba(123, 29, 58, 0.25);
 }
 
-/* Adaptación móvil del selector (en fila en la parte inferior) */
+/* Adaptación móvil del selector (en fila horizontal en la parte inferior) */
 @media (max-width: 500px) {
   .mascot-selector {
     bottom: 5.5rem !important;
     left: 0.8rem !important;
-    flex-direction: row !important; /* Diseño horizontal para móviles */
-    gap: 5px !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+    padding: 6px !important;
+    transform: translateY(0);
   }
   
   .mascot-sel-btn {
-    font-size: 0.65rem !important;
-    padding: 3px 8px !important;
+    font-size: 0.7rem !important;
+    padding: 5px 10px !important;
   }
   
   .mascot-sel-btn:hover {
-    transform: translateY(-2px); /* Deslizamiento vertical en móviles en lugar de horizontal */
+    transform: translateY(-2px); /* Vertical slide on mobile hover */
+  }
+  .mascot-sel-btn:active {
+    transform: scale(0.96) translateY(-2px);
   }
 }
 
