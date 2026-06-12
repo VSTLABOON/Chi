@@ -44,7 +44,7 @@
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  width: 320px;
+  width: min(320px, 92vw);
   background: #2b2b2b; /* Sleek dark plastic Walkman body */
   border: 3px solid #1a1a1a;
   border-radius: 12px;

@@ -348,63 +348,132 @@
   100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
 }
 
-/* ─── MASCOT PEQUEÑA BURBUJA (POLLITO) ─────────────── */
+/* ─── MASCOT PEQUEÑA BURBUJA (POLLITO CAMINANTE) ──────── */
+.pollo-sticker-wrap {
+  position: absolute !important;
+  bottom: 0.2rem !important; /* Colocado directamente en la repisa de madera */
+  right: auto !important;
+  left: 1rem;
+  width: 75px !important;
+  height: 75px !important;
+  background: transparent !important; /* Fondo transparente */
+  border: none !important; /* Sin bordes circulares */
+  box-shadow: none !important; /* Sin sombras circulares */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  animation: polloWalk 20s linear infinite !important; /* Caminata horizontal */
+  overflow: visible !important; /* Permite ver el bocadillo de diálogo */
+  z-index: 50;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Wada wada / waddling image animation (hops, rotates and flips) */
+.pollo-sticker-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: polloWaddle 20s linear infinite;
+  transform-origin: center bottom;
+}
+
+.pollo-sticker-wrap.hop {
+  animation: polloHopClick 0.45s ease-out !important;
+}
+
+/* Giro completo y salto al hacer clic */
+@keyframes polloHopClick {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-28px) scale(1.15) rotate(360deg); }
+}
+
+/* Horizontal walk path across the blackboard bottom */
+@keyframes polloWalk {
+  0%, 100% { left: 1.5rem; }
+  50%      { left: calc(100% - 75px - 1.5rem); }
+}
+
+/* Waddling walk logic: matches walking phases and flips direction */
+@keyframes polloWaddle {
+  /* Phase 1: Walking right (0% -> 48%) */
+  0% { transform: scaleX(1) translateY(0) rotate(0deg); }
+  5%, 15%, 25%, 35%, 45% { transform: scaleX(1) translateY(-6px) rotate(6deg); }
+  10%, 20%, 30%, 40% { transform: scaleX(1) translateY(0) rotate(-6deg); }
+  48% { transform: scaleX(1) translateY(0) rotate(0deg); }
+  
+  /* Turn around at 50% */
+  50% { transform: scaleX(-1) translateY(0) rotate(0deg); }
+  
+  /* Phase 2: Walking left (50% -> 98%) */
+  55%, 65%, 75%, 85%, 95% { transform: scaleX(-1) translateY(-6px) rotate(-6deg); }
+  60%, 70%, 80%, 90% { transform: scaleX(-1) translateY(0) rotate(6deg); }
+  98% { transform: scaleX(-1) translateY(0) rotate(0deg); }
+  
+  /* Turn around at 100% */
+  100% { transform: scaleX(1) translateY(0) rotate(0deg); }
+}
+
+/* Bocadillo de diálogo flotando sobre el pollito (ahora relativo a polloSticker) */
 .pollo-bubble {
   position: absolute;
-  bottom: 80px;
-  right: 15px;
+  bottom: 85px; /* Arriba de la cabeza del pollito */
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  transform-origin: bottom center;
   background: #ffffff;
   color: var(--text-dark);
   font-family: 'Caveat', cursive;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: bold;
   padding: 8px 12px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-  border: 1.5px solid var(--cafe);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  border: 2px solid var(--cafe);
   white-space: normal;
-  max-width: 140px;
+  width: 150px;
+  text-align: center;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px) scale(0.8);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: 6;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s, visibility 0.3s;
+  z-index: 100;
+  pointer-events: none;
 }
 
+/* Triángulo indicador apuntando hacia abajo */
 .pollo-bubble::after {
   content: '';
   position: absolute;
   bottom: -8px;
-  right: 22px;
+  left: 50%;
+  transform: translateX(-50%);
   border-width: 8px 8px 0 8px;
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
+  display: block;
+  width: 0;
 }
 
+/* Borde del triángulo indicador */
 .pollo-bubble::before {
   content: '';
   position: absolute;
   bottom: -10px;
-  right: 21px;
-  border-width: 9px 9px 0 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0 10px;
   border-style: solid;
   border-color: var(--cafe) transparent transparent transparent;
+  display: block;
+  width: 0;
   z-index: -1;
 }
 
 .pollo-bubble.open {
+  transform: translateX(-50%) scale(1);
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
-}
-
-.pollo-sticker-wrap.hop {
-  animation: polloHopClick 0.4s ease-out;
-}
-
-@keyframes polloHopClick {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-16px) scale(1.08) rotate(5deg); }
 }
 
 /* ─── VIDEO PLAY OVERLAY & MODAL ───────────────────── */
@@ -567,7 +636,6 @@
 
 /* ─── PRINT MODE FOR DIPLOMA ───────────────────── */
 @media print {
-  /* Ocultar todas las secciones raíz y elementos del body */
   .envelope-wrapper,
   .music-player,
   .progress-bar-container,
@@ -581,7 +649,12 @@
   .mosa-section,
   .maestra-section,
   .cierre,
-  .scrapbook-section {
+  .scrapbook-section,
+  .confetti-particle,
+  .petal,
+  .note,
+  .lunar,
+  .rizo {
     display: none !important;
   }
 
@@ -715,4 +788,34 @@
   max-width: 100% !important;
   width: 100% !important;
   padding: 0 !important;
+}
+
+/* ─── MOVIL RESPONSIVENESS ADAPTATIONS FOR BLACKBOARD ──── */
+@media (max-width: 500px) {
+  .pizarron {
+    border-width: 6px !important;
+  }
+  .pizarron-surface {
+    padding: 1.2rem 0.8rem !important;
+    min-height: 280px !important;
+  }
+  .pizarron-surface .pizarron-text {
+    font-size: 1.15rem !important;
+  }
+  .pollo-sticker-wrap {
+    width: 60px !important;
+    height: 60px !important;
+    bottom: 0.1rem !important;
+    animation: polloWalkMobile 20s linear infinite !important;
+  }
+  .pollo-bubble {
+    width: 130px !important;
+    bottom: 70px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+@keyframes polloWalkMobile {
+  0%, 100% { left: 0.8rem; }
+  50%      { left: calc(100% - 60px - 0.8rem); }
 }
