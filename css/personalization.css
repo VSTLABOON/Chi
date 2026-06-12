@@ -1,0 +1,718 @@
+/* ─── CH Cheek CONSTELLATION MAP ─────────────────── */
+.constellation-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 201, 138, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+}
+
+.cheek-profile {
+  width: min(240px, 70vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at center, rgba(242, 196, 206, 0.2) 0%, transparent 75%);
+  border-radius: 50%;
+  position: relative;
+  border: 2px dashed rgba(139, 94, 60, 0.2);
+  box-shadow: 0 10px 30px rgba(139,94,60,0.05);
+}
+
+.face-line-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Mole Stars */
+.mole-star {
+  position: absolute;
+  color: var(--dorado);
+  font-size: 1.4rem;
+  cursor: pointer;
+  user-select: none;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease, color 0.3s ease;
+  text-shadow: 0 0 5px var(--dorado), 0 0 10px rgba(232, 201, 138, 0.5);
+  z-index: 10;
+  animation: starTwinkle 2.5s infinite ease-in-out;
+}
+
+.mole-star:hover {
+  transform: translate(-50%, -50%) scale(1.35) rotate(15deg);
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 20px var(--dorado);
+}
+
+.mole-star.active {
+  transform: translate(-50%, -50%) scale(1.5) rotate(45deg);
+  color: #fff;
+  text-shadow: 0 0 12px #fff, 0 0 25px var(--dorado), 0 0 35px var(--rosa);
+  animation: none;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
+}
+
+.constellation-message {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--cafe);
+  text-align: center;
+  min-height: 48px;
+  max-width: 320px;
+  line-height: 1.6;
+  border-top: 1px solid rgba(232, 201, 138, 0.2);
+  padding-top: 0.8rem;
+  width: 100%;
+}
+
+/* ─── POLAROID SCRAPBOOK (ÁLBUM) ──────────────────── */
+.scrapbook-section {
+  background: linear-gradient(180deg, var(--crema) 0%, var(--lavanda) 100%);
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.scrapbook-intro {
+  font-style: italic;
+  color: var(--guinda-light);
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+.scrapbook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  perspective: 1500px;
+}
+
+.polaroid-card {
+  width: 100%;
+  aspect-ratio: 0.82;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.polaroid-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(90,18,40,0.08);
+  border-radius: 8px;
+}
+
+.polaroid-card:hover .polaroid-inner,
+.polaroid-card:focus .polaroid-inner {
+  transform: rotateY(180deg);
+  box-shadow: 0 15px 35px rgba(90,18,40,0.15);
+}
+
+.polaroid-front, .polaroid-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.polaroid-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.polaroid-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  align-items: center;
+  background: var(--crema);
+  border: 2px solid var(--rosa);
+  padding: 1.5rem;
+}
+
+.polaroid-img-placeholder {
+  flex: 1;
+  width: 100%;
+  background-color: #f6f6f6;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+}
+
+.polaroid-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 1.35rem;
+  color: var(--guinda);
+  margin-top: 0.2rem;
+  font-weight: 700;
+}
+
+.polaroid-dedication {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  color: var(--text-dark);
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* ─── CUESTIONARIO & DIPLOMA ──────────────────────── */
+.quiz-section {
+  background: var(--crema);
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.quiz-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.quiz-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.2rem 1.8rem;
+  box-shadow: 0 10px 30px rgba(90,18,40,0.06);
+  border-top: 5px solid var(--guinda);
+  margin: 2rem auto;
+  text-align: left;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.quiz-question-container h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: var(--guinda);
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.quiz-opt-btn {
+  background: #fdfdfd;
+  border: 1px solid rgba(90,18,40,0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+  line-height: 1.5;
+}
+
+.quiz-opt-btn:hover {
+  background: var(--lavanda);
+  border-color: var(--guinda-light);
+  transform: translateX(4px);
+}
+
+.quiz-opt-btn:active {
+  transform: scale(0.99);
+}
+
+/* Diploma Styles */
+.diploma-container {
+  display: none;
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  margin: 2rem auto;
+}
+
+.diploma-container.open {
+  display: block;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.diploma-card {
+  background: #fffdfb;
+  border: 8px double var(--dorado);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  box-shadow: 0 15px 40px rgba(139,94,60,0.15), inset 0 0 40px rgba(232,201,138,0.1);
+  position: relative;
+  text-align: center;
+}
+
+.diploma-seal {
+  width: 50px;
+  height: 50px;
+  background: var(--dorado);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+  margin: 0 auto 1.2rem;
+  box-shadow: 0 4px 10px rgba(232,201,138,0.4), inset 0 0 5px rgba(255,255,255,0.4);
+}
+
+.diploma-card h3 {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  color: var(--guinda-light);
+  margin-bottom: 0.3rem;
+}
+
+.diploma-subtitle {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--cafe);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+}
+
+.diploma-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-style: italic;
+  color: var(--guinda);
+  margin-bottom: 1.5rem;
+}
+
+.diploma-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.85;
+  color: #5A3542;
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+}
+
+.diploma-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px dashed rgba(139,94,60,0.2);
+  padding-top: 1.5rem;
+}
+
+.diploma-signature {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--guinda);
+}
+
+.diploma-date {
+  font-size: 0.75rem;
+  color: var(--cafe);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Confetti particles */
+.confetti-particle {
+  position: fixed;
+  top: -20px;
+  z-index: 99999;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+  pointer-events: none;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* ─── MASCOT PEQUEÑA BURBUJA (POLLITO) ─────────────── */
+.pollo-bubble {
+  position: absolute;
+  bottom: 80px;
+  right: 15px;
+  background: #ffffff;
+  color: var(--text-dark);
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  border: 1.5px solid var(--cafe);
+  white-space: normal;
+  max-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.8);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 6;
+}
+
+.pollo-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 22px;
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.pollo-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 21px;
+  border-width: 9px 9px 0 9px;
+  border-style: solid;
+  border-color: var(--cafe) transparent transparent transparent;
+  z-index: -1;
+}
+
+.pollo-bubble.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.pollo-sticker-wrap.hop {
+  animation: polloHopClick 0.4s ease-out;
+}
+
+@keyframes polloHopClick {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.08) rotate(5deg); }
+}
+
+/* ─── VIDEO PLAY OVERLAY & MODAL ───────────────────── */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  z-index: 10;
+}
+
+.mj-stage:hover .play-overlay {
+  opacity: 1;
+  border-color: var(--dorado);
+}
+
+.play-icon {
+  font-size: 2.2rem;
+  color: var(--dorado);
+  text-shadow: 0 0 10px rgba(232, 201, 138, 0.8);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mj-stage:hover .play-icon {
+  transform: scale(1.1);
+  animation: pulsePlay 1.5s infinite ease-in-out;
+}
+
+@keyframes pulsePlay {
+  0%, 100% { transform: scale(1.1); }
+  50% { transform: scale(1.22); }
+}
+
+.play-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--crema);
+  margin-top: 0.4rem;
+  font-weight: bold;
+}
+
+/* Modal Styles */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.video-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-content {
+  position: relative;
+  width: min(800px, 90vw);
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  border: 2px solid var(--dorado);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  z-index: 100;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-modal.open .modal-content {
+  transform: scale(1);
+}
+
+.video-ratio-container {
+  width: 100%;
+  height: 100%;
+}
+
+.video-ratio-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--guinda);
+  border: 2px solid var(--dorado);
+  color: var(--crema);
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 101;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+  background: var(--guinda-light);
+}
+
+/* ─── DIPLOMA DOWNLOAD BUTTON ───────────────────── */
+.diploma-download-btn {
+  background: linear-gradient(180deg, var(--guinda-light) 0%, var(--guinda) 100%);
+  border: 1px solid var(--guinda);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(123, 29, 58, 0.25);
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  display: inline-block;
+}
+
+.diploma-download-btn:hover {
+  background: linear-gradient(180deg, #b9466c 0%, #8d2545 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(123, 29, 58, 0.35);
+}
+
+.diploma-download-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── PRINT MODE FOR DIPLOMA ───────────────────── */
+@media print {
+  /* Ocultar todas las secciones raíz y elementos del body */
+  .envelope-wrapper,
+  .music-player,
+  .progress-bar-container,
+  .hero,
+  .chapter,
+  .ornament,
+  .book-section,
+  .thriller-section,
+  .ojos-section,
+  .rizos-section,
+  .mosa-section,
+  .maestra-section,
+  .cierre,
+  .scrapbook-section {
+    display: none !important;
+  }
+
+  /* Ocultar el resto del contenido de la sección del quiz */
+  .quiz-inner > p,
+  .quiz-inner > h2,
+  .quiz-inner > .chapter-label,
+  .quiz-inner > .quiz-card {
+    display: none !important;
+  }
+
+  /* Ajustar los contenedores padre del diploma para que no tengan márgenes ni rellenos residuales */
+  html, body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fffdfb !important;
+  }
+
+  .quiz-section {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .quiz-inner {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  #diplomaContainer {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .diploma-card {
+    border: 12px double #8B5E3C !important;
+    box-shadow: none !important;
+    background: #fffdfb !important;
+    padding: 3rem 2rem !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    max-width: 650px !important;
+    margin: 20px auto !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .diploma-download-btn {
+    display: none !important;
+  }
+  
+  .diploma-name {
+    color: #7B1D3A !important;
+    text-shadow: none !important;
+  }
+  .diploma-seal {
+    background: #8B5E3C !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ─── THRILLER BACKGROUND VIDEO ─────────────────── */
+.thriller-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crema) !important;
+  padding: 0 !important;
+}
+
+.thriller-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.thriller-video-bg iframe {
+  width: 100vw;
+  height: 56.25vw; /* 16:9 Aspect Ratio */
+  min-height: 100%;
+  min-width: 177.77vh; /* 16:9 Aspect Ratio */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  opacity: 0.6; /* Let some darkness from backend bleed in */
+}
+
+.thriller-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 4, 13, 0.78); /* Deep dark guinda overlay for readability */
+  z-index: 2;
+}
+
+.thriller-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.thriller-text {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+}

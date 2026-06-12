@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Samara: Una Carta del Fin del Cretácico</title>
+  <!-- Google Fonts: Playfair Display, Lato, Caveat (for handwriting chalk) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Link to external styling -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- ══════════ BOOK INTERACTIVE INTRO ══════════ -->
+<div id="envelope-wrapper" class="envelope-wrapper">
+  <div class="book-intro-container">
+    <div class="intro-book" id="introBook" tabindex="0" role="button" aria-label="Abrir libro para Samara">
+      <!-- Back Cover -->
+      <div class="intro-book-cover back"></div>
+      
+      <!-- Middle Pages -->
+      <div class="intro-book-page page3">
+        <div class="intro-book-page-content">
+          <h3>Un cariño infinito</h3>
+          <p>Que desafía al tiempo y la distancia, de la era Mesozoica hasta hoy...</p>
+        </div>
+      </div>
+      <div class="intro-book-page page2">
+        <div class="intro-book-page-content">
+          <h3>Escrita con tiza y música</h3>
+          <p>Al compás del moonwalk de Michael Jackson y el cacareo de un pollo ancestral...</p>
+        </div>
+      </div>
+      <div class="intro-book-page page1">
+        <div class="intro-book-page-content">
+          <h3>Cretácico Superior</h3>
+          <p>Una edición única diseñada con amor para la mejor maestra...</p>
+        </div>
+      </div>
+      
+      <!-- Front Cover -->
+      <div class="intro-book-cover front">
+        <div class="intro-book-cover-design">
+          <span class="intro-book-heart">✦</span>
+          <h2>Enciclopedia<br>de Samara</h2>
+          <p>Toca para abrir</p>
+        </div>
+      </div>
+    </div>
+    <p class="envelope-instruction">Haz clic en el libro para abrir la carta</p>
+  </div>
+</div>
+
+<!-- ══════════ MUSIC PLAYER (WIDGET) ══════════ -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" aria-label="Abrir reproductor de música" title="Playlist para Samara">
+    <span class="music-icon">🎵</span>
+  </button>
+  <div class="playlist-panel" id="playlistPanel">
+    <div class="walkman-player">
+      
+      <!-- Cassette Body -->
+      <div class="cassette-body">
+        <div class="cassette-label">
+          <h4>Para Samara Vol. 1</h4>
+          <span class="cassette-side">A</span>
+        </div>
+        
+        <!-- Cassette Window with Tape Reels -->
+        <div class="cassette-window">
+          <div class="tape-reel">
+            <div class="tape-gear"></div>
+          </div>
+          <div class="tape-reel">
+            <div class="tape-gear"></div>
+          </div>
+        </div>
+        
+        <!-- Current Track Display -->
+        <div class="current-track-container">
+          <span class="current-track-title" id="currentTrackTitle">Cargando...</span>
+          <span class="current-track-artist" id="currentTrackArtist"></span>
+        </div>
+      </div>
+      
+      <!-- Walkman Buttons -->
+      <div class="walkman-buttons">
+        <button class="walkman-btn" id="prevBtn" title="Anterior">◀◀</button>
+        <button class="walkman-btn play-pause-btn" id="playPauseBtn" title="Reproducir/Pausar">▶</button>
+        <button class="walkman-btn" id="nextBtn" title="Siguiente">▶▶</button>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="track-progress-container">
+        <span class="time-elapsed" id="timeElapsed">0:00</span>
+        <div class="track-progress-bar" id="trackProgressBar">
+          <div class="track-progress-fill" id="trackProgressFill"></div>
+        </div>
+        <span class="time-duration" id="timeDuration">0:00</span>
+      </div>
+
+      <!-- Playlist Tracks -->
+      <ul class="playlist-tracks" id="playlistTracks">
+        <!-- Generado dinámicamente en JS -->
+      </ul>
+      
+    </div>
+  </div>
+  <audio id="bgAudio" loop></audio>
+</div>
+
+<!-- ══════════ READING PROGRESS BAR ══════════ -->
+<div class="progress-bar-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="lunares" id="lunaresHero"></div>
+
+  <p class="hero-eyebrow">Una carta del fin del Cretácico</p>
+  <h1 class="hero-title">Para <em>Samara</em>,<br>maestra de todos los tiempos</h1>
+  <p class="hero-subtitle">
+    Escrita entre páginas de libros extintos,<br>
+    al ritmo de un moonwalk y el cacareo<br>
+    de un pollo que sobrevivió a los dinosaurios.
+  </p>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>leer</span>
+  </div>
+</section>
+
+<!-- ══════════ CAPÍTULO 1: PRÓLOGO ══════════ -->
+<section class="chapter">
+  <p class="chapter-label">Prólogo</p>
+  <h2>Antes de que los mares<br><em>recordaran tu nombre</em></h2>
+  <p>
+    Hay personas que llegan como los mosasaurus al océano Tethys: 
+    inevitables, magnéticas, y capaces de hacer que todo lo demás
+    parezca pequeño en comparación. Tú llegaste así.
+  </p>
+  <p>
+    En algún libro olvidado del Cretácico Superior, entre fósiles de ammonitas
+    y páginas color arcilla, alguien ya había escrito tu historia. 
+    Sólo faltaba que tú aparecieras para confirmarla.
+  </p>
+</section>
+
+<div class="ornament">
+  <div class="ornament-line"></div>
+  <div class="ornament-symbol">✦</div>
+  <div class="ornament-line"></div>
+</div>
+
+<!-- ══════════ LIBRO ANIMADO ══════════ -->
+<section class="book-section">
+  <div class="book-inner">
+    <div class="book-title-area">
+      <p class="chapter-label">Capítulo I: La Biblioteca</p>
+      <h2>Los libros que te eligieron a ti</h2>
+      <p>Porque los buenos libros siempre encuentran a su lectora correcta.</p>
+    </div>
+
+    <div class="book-3d" tabindex="0" role="img" aria-label="Libro animado: Enciclopedia de Samara">
+      <div class="book-cover">
+        <div class="book-front">
+          <div class="book-front-img-wrap">
+            <img src="images/libro_portada.svg" alt="Libro Portada" class="sticker-img" />
+          </div>
+          <h3>Enciclopedia<br>de Samara</h3>
+          <p class="book-author">Vol. I: Edición Única</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-pages">
+      <div class="page-card" style="--gradient: linear-gradient(90deg, #7B1D3A, #F2C4CE)">
+        <div class="card-image-wrap">
+          <img src="images/dino_academico.svg" alt="Dinosaurio Académico" class="sticker-img" />
+        </div>
+        <h4>Los Dinosaurios Académicos</h4>
+        <p>El Tiranosaurus Rex tenía dientes de 30 cm, pero no podía aprobar tu clase de Formación Cívica. Le habría ido reprobado.</p>
+      </div>
+      <div class="page-card" style="--gradient: linear-gradient(90deg, #A63255, #E8D5F5)">
+        <div class="card-image-wrap">
+          <img src="images/pollo_ancestro.svg" alt="Pollo Ancestral" class="sticker-img" />
+        </div>
+        <h4>El Pollo, Ancestro del Jurásico</h4>
+        <p>El pollo es el pariente vivo más cercano al T-Rex. Lo que significa que cada milanesa lleva 65 millones de años de historia.</p>
+      </div>
+      <div class="page-card" style="--gradient: linear-gradient(90deg, #E8C98A, #F2C4CE)">
+        <div class="card-image-wrap">
+          <img src="images/thriller_dance.svg" alt="Thriller" class="sticker-img" />
+        </div>
+        <h4>Thriller, Año 83 d.C.</h4>
+        <p>Michael Jackson lanzó Thriller en 1982. Los críticos dijeron que era imposible bailar así. Ningún crítico era Michael Jackson.</p>
+      </div>
+      <div class="page-card" style="--gradient: linear-gradient(90deg, #7B1D3A, #E8C98A)">
+        <div class="card-image-wrap">
+          <img src="images/mosasaurio_atlantico.svg" alt="Mosasaurio" class="sticker-img" />
+        </div>
+        <h4>Mosasaurus, Señora del Atlántico</h4>
+        <p>El Mosasaurus llegó a medir 18 metros. También era la criatura más elegante de su época. Como tú, pero con aletas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MJ THRILLER ══════════ -->
+<section class="thriller-section">
+  <!-- Looping muted background video from YouTube (Using clean fan uploader ID hG6oy46qKE4 to allow file:// playback) -->
+  <div class="thriller-video-bg">
+    <iframe src="https://www.youtube.com/embed/hG6oy46qKE4?autoplay=1&mute=1&loop=1&playlist=hG6oy46qKE4&playsinline=1&controls=0&showinfo=0&rel=0&iv_load_policy=3" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+  <div class="thriller-overlay"></div>
+  
+  <div class="thriller-inner">
+    <div class="thriller-text">
+      <p class="chapter-label">Capítulo II: El Baile</p>
+      <h2>Thriller no fue el único<br>milagro de los 80</h2>
+      <p>
+        Hay algo en la forma en que Michael Jackson entendía el ritmo
+        que se parece mucho a cómo tú entiendes a tus estudiantes:
+        con una precisión quirúrgica disfrazada de naturalidad.
+      </p>
+      <p>
+        Cuando "Beat It" suena, la historia sabe que algo importante 
+        está pasando. Igual que cuando tú entras a un salón.
+      </p>
+      <p style="color: var(--dorado); font-style: italic; font-family: 'Playfair Display', serif;">
+        "Don't stop 'til you get enough", podría ser un lema pedagógico.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ OJOS CAFÉ Y CONSTELACIÓN ══════════ -->
+<section class="ojos-section">
+  <div class="ojos-inner">
+    <div class="ojo-ilustracion">
+      <div class="ojo-svg-wrap">
+        <div class="ojo-css">
+          <!-- Ojo sin lunares encima -->
+        </div>
+      </div>
+      
+      <!-- Constelación interactiva en las mejillas -->
+      <div class="constellation-container">
+        <div class="cheek-profile" id="cheekProfile">
+          <svg class="face-line-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,10 C45,15 75,35 80,60 C83,75 70,90 50,95" stroke="rgba(139,94,60,0.2)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="mole-star" style="top: 30%; left: 40%;" data-index="0" title="Estrella de la risa">✦</div>
+          <div class="mole-star" style="top: 45%; left: 58%;" data-index="1" title="Estrella de los libros">✦</div>
+          <div class="mole-star" style="top: 60%; left: 35%;" data-index="2" title="Estrella del café">✦</div>
+          <div class="mole-star" style="top: 72%; left: 62%;" data-index="3" title="Estrella del Cretácico">✦</div>
+          <div class="mole-star" style="top: 50%; left: 78%;" data-index="4" title="Estrella del camino">✦</div>
+        </div>
+        <div class="constellation-message" id="constellationMessage">
+          Toca las estrellas en la constelación de mis mejillas para revelar sus secretos...
+        </div>
+      </div>
+    </div>
+    <div class="ojos-text">
+      <p class="chapter-label">Capítulo III: El Iris y la Constelación</p>
+      <h2>Dos cosas color café<br>reorganizan el mundo</h2>
+      <p>
+        Los paleontólogos estudian el pasado a través de fósiles.
+        Yo estudio el presente a través de tus ojos.
+        Ambos encontramos ahí algo que no esperábamos.
+      </p>
+      <blockquote class="verse">
+        "En el color café de tus ojos<br>
+        caben el verano de Monterrey,<br>
+        un libro abierto al mediodía<br>
+        y el calor exacto de quedarse."
+      </blockquote>
+      <p>
+        Y en tus mejillas: lunares. Una hermosa constelación de pequeñas constantes,
+        como estrellas que decidieron quedarse en la tierra
+        para ver mejor lo que pasa aquí abajo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">
+  <div class="ornament-line"></div>
+  <div class="ornament-symbol">✦</div>
+  <div class="ornament-line"></div>
+</div>
+
+<!-- ══════════ RIZOS DE ORO ══════════ -->
+<section class="rizos-section">
+  <div class="rizos-inner">
+    <p class="chapter-label" style="text-align:center;">Capítulo IV: La Física del Rizo</p>
+    <h2>La teoría cuántica del cabello</h2>
+    <p class="intro-p">
+      Los físicos llevan décadas intentando explicar por qué los rizos 
+      se forman así y no de otra manera. La respuesta, que no quieren 
+      admitir en sus publicaciones, es que depende de quién los tenga.
+    </p>
+
+    <div class="rizos-canvas" id="rizosCanvas"></div>
+
+    <p class="intro-p" style="font-style:italic; color: var(--guinda-light);">
+      Cada rizo guarda una historia diferente. Algunos saben de viento
+      de Monterrey. Otros de madrugadas leyendo. Todos son oro.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ MOSASAURUS ══════════ -->
+<section class="mosa-section">
+  <div class="mosa-inner">
+    <p class="chapter-label">Capítulo V: El Mar del Cretácico</p>
+    <h2>Lo que el Mosasaurus<br>le dijo al océano</h2>
+    <p>
+      Hace 72 millones de años, el Mosasaurus dominaba los mares 
+      con una gracia imposible para algo de 18 metros. 
+      Los científicos no saben si era feliz. 
+    </p>
+    <p>
+      Yo creo que sí. Creo que era feliz porque tenía el mar entero
+      y porque nadie se atrevía a decirle cómo vivir.
+    </p>
+
+    <div class="mosa-img-wrap">
+      <img src="images/mosa_water.svg" alt="Mosasaurus" class="sticker-img-animated" />
+    </div>
+
+    <blockquote class="mosa-quote">
+      "El Mosasaurus no necesitaba Wi-Fi para saber 
+      que estaba en el lugar correcto. Tú tampoco."
+    </blockquote>
+  </div>
+  <div class="olas">
+    <div class="ola"></div>
+    <div class="ola"></div>
+  </div>
+</section>
+
+<!-- ══════════ MAESTRA ══════════ -->
+<section class="maestra-section">
+  <div class="maestra-inner">
+    <div>
+      <p class="chapter-label">Capítulo VI: El Salón</p>
+      <h2>Lo que ocurre cuando<br>una maestra de verdad enseña</h2>
+      <p>
+        No toda persona que está frente a un pizarrón enseña.
+        Enseñar es otra cosa: es saber cuándo callar para que el otro
+        encuentre la respuesta solo. Eso lo haces tú sin pensarlo.
+      </p>
+      <p>
+        Tus estudiantes no lo saben todavía, pero dentro de veinte años
+        van a recordar exactamente cómo explicabas, el tono que usabas,
+        la paciencia que tenías para repetir lo mismo de doce maneras 
+        distintas hasta que tuviera sentido.
+      </p>
+      <p style="font-style: italic; color: var(--guinda-light); font-family: 'Playfair Display', serif;">
+        Eso no se aprende. Eso se es.
+      </p>
+    </div>
+    <div>
+      <div class="pizarron">
+        <div class="pizarron-surface">
+          <p class="pizarron-text" id="pizarronTexto"></p>
+          <div class="pollo-sticker-wrap" id="polloSticker" role="button" tabindex="0" aria-label="Mascota pollito" title="Toca al pollito">
+            <img src="images/pollo_sticker.svg" alt="Pollo Sticker" class="sticker-img" />
+          </div>
+          <div class="pollo-bubble" id="polloBubble">¡Pío!</div>
+        </div>
+        <div class="tiza-repisa">
+          <div class="tizas-colores">
+            <span class="tiza tiza-blanca active" data-color="#ffffff" title="Tiza Blanca"></span>
+            <span class="tiza tiza-rosa" data-color="#F2C4CE" title="Tiza Rosa"></span>
+            <span class="tiza tiza-amarilla" data-color="#E8C98A" title="Tiza Amarilla"></span>
+            <span class="tiza tiza-azul" data-color="#B8D4EE" title="Tiza Azul"></span>
+          </div>
+          <div class="borrador" id="borradorPizarron" title="Borrar y volver a escribir">🧼</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CIERRE ══════════ -->
+<section class="cierre">
+  <div class="cierre-inner">
+    <div class="cierre-img-wrap">
+      <img src="images/flor_cierre.svg" alt="Rosa Cierre" class="sticker-img-animated" />
+    </div>
+    <h2>Del Cretácico a Monterrey,<br>lo que no ha cambiado</h2>
+    <p>
+      Los dinosaurios se fueron. Los mosasaurus también.
+      Michael Jackson ya no está. Pero los pollos siguen aquí,
+      pequeños y tenaces, recordándonos que sobrevivir
+      tiene su propia elegancia.
+    </p>
+    <p>
+      Y tú sigues aquí: con tus rizos, tus lunares, tus ojos café
+      y esa personalidad que no cabe en ningún libro
+      aunque los libros sigan intentándolo.
+    </p>
+    <p>
+      Desde Puebla, con todo.
+    </p>
+    <p class="firma">Con amor, Meme ✦ 2026</p>
+  </div>
+</section>
+
+<!-- ══════════ POLAROID SCRAPBOOK (ÁLBUM DE RECUERDOS) ══════════ -->
+<section class="scrapbook-section">
+  <p class="chapter-label">Capítulo VII: El Álbum</p>
+  <h2>Álbum de Recuerdos Polaroid</h2>
+  <p class="scrapbook-intro">Pasa el mouse o toca cada foto para revelar los secretos guardados en el reverso...</p>
+  
+  <div class="scrapbook-grid">
+    <!-- Polaroid 1 -->
+    <div class="polaroid-card" tabindex="0">
+      <div class="polaroid-inner">
+        <div class="polaroid-front">
+          <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_libros.svg');"></div>
+          <p class="polaroid-caption">Tardes de Libros 📚</p>
+        </div>
+        <div class="polaroid-back">
+          <p class="polaroid-dedication">"Los libros nos enseñan mundos pasados, pero tú me enseñas a vivir el presente con alegría."</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Polaroid 2 -->
+    <div class="polaroid-card" tabindex="0">
+      <div class="polaroid-inner">
+        <div class="polaroid-front">
+          <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_cafe.svg');"></div>
+          <p class="polaroid-caption">Ojos Café y Café Caliente ☕</p>
+        </div>
+        <div class="polaroid-back">
+          <p class="polaroid-dedication">"Como una taza de café en la mañana de Monterrey, tu presencia es el calor exacto que me reconforta."</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Polaroid 3 -->
+    <div class="polaroid-card" tabindex="0">
+      <div class="polaroid-inner">
+        <div class="polaroid-front">
+          <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_dino.svg');"></div>
+          <p class="polaroid-caption">El Último Dinosaurio 🦖</p>
+        </div>
+        <div class="polaroid-back">
+          <p class="polaroid-dedication">"Aunque los dinosaurios desaparecieron hace millones de años, mi cariño por ti sobrevive al paso del tiempo."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CUESTIONARIO Y DIPLOMA DE EXCELENCIA ══════════ -->
+<section class="quiz-section">
+  <div class="quiz-inner">
+    <p class="chapter-label">Capítulo VIII: El Examen</p>
+    <h2>Cuestionario del Cretácico para Maestras</h2>
+    <p>¿Qué tanto sabes sobre tus alumnos y la historia de la vida?</p>
+    
+    <!-- Quiz Card -->
+    <div class="quiz-card" id="quizCard">
+      <div id="questionContainer">
+        <!-- Generado dinámicamente en JS -->
+      </div>
+    </div>
+    
+    <!-- Diploma -->
+    <div class="diploma-container" id="diplomaContainer">
+      <div class="diploma-card">
+        <div class="diploma-seal">✦</div>
+        <h3>Diploma de Excelencia</h3>
+        <p class="diploma-subtitle">Otorgado en el Fin del Cretácico</p>
+        <h2 class="diploma-name">Samara</h2>
+        <p class="diploma-text">
+          Por ser la maestra más extraordinaria de todos los tiempos. Capaz de guiar con paciencia infinita, inspirar con sabiduría y mantener viva la chispa de la curiosidad, superando incluso la prueba del impacto del meteorito.
+        </p>
+        <div class="diploma-footer">
+          <div class="diploma-signature">Meme</div>
+          <div class="diploma-date">Era Mesozoica, 2026</div>
+        </div>
+        <button class="diploma-download-btn" id="downloadDiplomaBtn">Descargar Certificado (PDF)</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scripts modularizados cargados localmente (sin CORS) -->
+<script src="js/particles.js"></script>
+<script src="js/music.js"></script>
+<script src="js/pizarron.js"></script>
+<script src="js/constellation.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/envelope.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

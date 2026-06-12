@@ -1,0 +1,194 @@
+/* ─── BOOK OVERLAY (INTERACTIVE INTRO) ────────── */
+.envelope-wrapper {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #5A1228 0%, #20040D 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
+}
+
+.envelope-wrapper.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.book-intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  perspective: 1600px;
+}
+
+.intro-book {
+  position: relative;
+  width: min(280px, 75vw);
+  aspect-ratio: 0.73; /* 280x380 approx */
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  border-radius: 4px;
+}
+
+.intro-book:hover {
+  transform: rotateY(-8deg) rotateX(4deg) translateY(-8px);
+}
+
+.intro-book-cover, .intro-book-page {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Covers (Hardcover style) */
+.intro-book-cover {
+  background: #7B1D3A;
+  border: 4px solid var(--dorado);
+  border-left-width: 12px; /* book spine */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.intro-book-cover.back {
+  z-index: 1;
+  background: #5A1228;
+  transform: translateZ(-10px);
+  border-left-width: 4px;
+}
+
+.intro-book-cover.front {
+  transform: translateZ(0px);
+}
+
+.intro-book-cover-design {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--crema);
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.intro-book-cover-design h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dorado);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  line-height: 1.3;
+}
+
+.intro-book-cover-design p {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--rosa);
+  animation: pulseInstruction 2s infinite ease-in-out;
+}
+
+.intro-book-heart {
+  font-size: 2.2rem;
+  color: var(--dorado);
+  text-shadow: 0 0 10px rgba(232, 201, 138, 0.5);
+}
+
+/* Pages (Paper style) */
+.intro-book-page {
+  background: #FDF0E8;
+  border: 1px solid #eadecc;
+  border-left-width: 6px; /* spine binding */
+  border-left-color: #7B1D3A;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  box-shadow: inset 10px 0 20px rgba(0,0,0,0.05), 1px 0 5px rgba(0,0,0,0.1);
+}
+
+.intro-book-page-content h3 {
+  font-size: 1.4rem;
+  color: var(--guinda);
+  margin-bottom: 0.6rem;
+}
+
+.intro-book-page-content p {
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--cafe);
+}
+
+/* Page Stack index and delay */
+.intro-book-page.page1 {
+  z-index: 5;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+}
+
+.intro-book-page.page2 {
+  z-index: 4;
+  transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.intro-book-page.page3 {
+  z-index: 3;
+  transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1) 0.45s;
+}
+
+/* Open State Animations */
+.intro-book.open .intro-book-cover.front {
+  transform: rotateY(-172deg);
+}
+
+.intro-book.open .intro-book-page.page1 {
+  transform: rotateY(-162deg);
+}
+
+.intro-book.open .intro-book-page.page2 {
+  transform: rotateY(-152deg);
+}
+
+.intro-book.open .intro-book-page.page3 {
+  transform: rotateY(-142deg);
+}
+
+.envelope-instruction {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: var(--rosa);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  animation: pulseInstruction 2s infinite ease-in-out;
+  text-align: center;
+}
+
+@keyframes pulseInstruction {
+  0%, 100% { opacity: 0.5; transform: scale(0.97); }
+  50% { opacity: 1; transform: scale(1.03); }
+}

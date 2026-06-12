@@ -1,0 +1,342 @@
+/* ─── MUSIC PLAYER FLOATING WIDGET ───────────────── */
+.music-player {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+}
+
+.music-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(123, 29, 58, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid var(--dorado);
+  color: var(--crema);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+  z-index: 999;
+}
+
+.music-btn:hover {
+  transform: scale(1.12);
+  background: var(--guinda);
+}
+
+.music-btn.playing {
+  animation: spin 6s linear infinite;
+  border-color: var(--rosa);
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* ─── RETRO WALKMAN CASSETTE PANEL ──────────────── */
+.playlist-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 320px;
+  background: #2b2b2b; /* Sleek dark plastic Walkman body */
+  border: 3px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 998;
+  font-family: 'Lato', sans-serif;
+}
+
+.music-player.open .playlist-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.walkman-player {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Cassette Tape Design */
+.cassette-body {
+  background: #4a4a4a; /* Cassette shell */
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.8rem;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.cassette-label {
+  background: var(--guinda);
+  border-bottom: 3px solid var(--dorado);
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+}
+
+.cassette-label h4 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: var(--dorado);
+}
+
+.cassette-side {
+  font-weight: bold;
+  font-size: 0.75rem;
+  color: var(--crema);
+  border: 1px solid var(--crema);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+/* Tape window with rotating reels */
+.cassette-window {
+  height: 50px;
+  background: #181818;
+  border: 2px solid #282828;
+  margin: 6px 0;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* Tape Reels */
+.tape-reel {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid #111;
+}
+
+.tape-reel::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #181818;
+  border: 1px solid #555;
+}
+
+.tape-gear {
+  width: 14px;
+  height: 14px;
+  background: var(--dorado);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Gear teeth */
+.tape-gear::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px dashed #000;
+  border-radius: 50%;
+}
+
+/* Animation for reels when music plays */
+.music-player.playing .tape-reel {
+  animation: rotateReels 3s linear infinite;
+}
+
+@keyframes rotateReels {
+  100% { transform: rotate(360deg); }
+}
+
+/* Track info inside cassette */
+.current-track-container {
+  background: #222;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-top: 6px;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.current-track-title {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.current-track-artist {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--rosa);
+}
+
+/* Walkman Tactile Buttons */
+.walkman-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background: #1e1e1e;
+  border-radius: 6px;
+  padding: 6px;
+  border: 1px solid #111;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.walkman-btn {
+  background: linear-gradient(180deg, #555 0%, #333 100%);
+  border: 1px solid #222;
+  border-top: 2px solid #666;
+  border-radius: 4px;
+  color: #ccc;
+  width: 48px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  transition: all 0.1s ease;
+}
+
+.walkman-btn:hover {
+  color: #fff;
+  background: linear-gradient(180deg, #666 0%, #444 100%);
+}
+
+.walkman-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-top-width: 1px;
+  background: #2c2c2c;
+}
+
+.play-pause-btn {
+  background: linear-gradient(180deg, #A63255 0%, #7B1D3A 100%);
+  border-color: #5A0E22;
+  border-top-color: #C1436E;
+  color: #fff;
+}
+
+.play-pause-btn:hover {
+  background: linear-gradient(180deg, #B9466C 0%, #8D2545 100%);
+}
+
+.music-player.playing .play-pause-btn {
+  background: #2c2c2c;
+  border-top: 1px solid #111;
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Progress bar inside panel */
+.track-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  color: #aaa;
+  padding: 0 4px;
+}
+
+.track-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.track-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--dorado);
+  border-radius: 2px;
+  position: relative;
+}
+
+/* Walkman Playlist Track items */
+.playlist-tracks {
+  list-style: none;
+  max-height: 130px;
+  overflow-y: auto;
+  border-top: 1px solid #333;
+  padding-top: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dorado) #2b2b2b;
+}
+
+.playlist-tracks::-webkit-scrollbar {
+  width: 4px;
+}
+
+.playlist-tracks::-webkit-scrollbar-thumb {
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
+.track-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: #ccc;
+  transition: all 0.2s ease;
+  margin-bottom: 2px;
+}
+
+.track-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.track-item.active {
+  background: rgba(232, 201, 138, 0.1);
+  color: var(--dorado);
+  font-weight: bold;
+  border-left: 3px solid var(--dorado);
+  padding-left: 5px;
+}
+
+.track-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.track-item-artist {
+  font-size: 0.65rem;
+  color: var(--rosa);
+  opacity: 0.8;
+}
