@@ -54,7 +54,7 @@
 <!-- ══════════ MUSIC PLAYER (WIDGET) ══════════ -->
 <div class="music-player" id="musicPlayer">
   <button class="music-btn" id="musicBtn" aria-label="Abrir reproductor de música" title="Playlist para Samara">
-    <span class="music-icon">🎵</span>
+    <span class="music-icon">♪</span>
   </button>
   <div class="playlist-panel" id="playlistPanel">
     <div class="walkman-player">
@@ -366,11 +366,8 @@
     <div>
       <div class="pizarron">
         <div class="pizarron-surface">
+          <canvas id="chalkCanvas"></canvas>
           <p class="pizarron-text" id="pizarronTexto"></p>
-          <div class="pollo-sticker-wrap" id="polloSticker" role="button" tabindex="0" aria-label="Mascota pollito" title="Toca al pollito">
-            <img src="images/pollo_sticker.svg" alt="Pollo Sticker" class="sticker-img" />
-            <div class="pollo-bubble" id="polloBubble">¡Pío!</div>
-          </div>
         </div>
         <div class="tiza-repisa">
           <div class="tizas-colores">
@@ -379,7 +376,7 @@
             <span class="tiza tiza-amarilla" data-color="#E8C98A" title="Tiza Amarilla"></span>
             <span class="tiza tiza-azul" data-color="#B8D4EE" title="Tiza Azul"></span>
           </div>
-          <div class="borrador" id="borradorPizarron" title="Borrar y volver a escribir">🧼</div>
+          <div class="borrador" id="borradorPizarron" title="Borrar y volver a escribir">Borrar</div>
         </div>
       </div>
     </div>
@@ -423,7 +420,7 @@
       <div class="polaroid-inner">
         <div class="polaroid-front">
           <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_libros.svg');"></div>
-          <p class="polaroid-caption">Tardes de Libros 📚</p>
+          <p class="polaroid-caption">Tardes de Libros</p>
         </div>
         <div class="polaroid-back">
           <p class="polaroid-dedication">"Los libros nos enseñan mundos pasados, pero tú me enseñas a vivir el presente con alegría."</p>
@@ -436,7 +433,7 @@
       <div class="polaroid-inner">
         <div class="polaroid-front">
           <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_cafe.svg');"></div>
-          <p class="polaroid-caption">Ojos Café y Café Caliente ☕</p>
+          <p class="polaroid-caption">Ojos Café y Café Caliente</p>
         </div>
         <div class="polaroid-back">
           <p class="polaroid-dedication">"Como una taza de café en la mañana de Monterrey, tu presencia es el calor exacto que me reconforta."</p>
@@ -449,7 +446,7 @@
       <div class="polaroid-inner">
         <div class="polaroid-front">
           <div class="polaroid-img-placeholder" style="background-image: url('images/polaroid_dino.svg');"></div>
-          <p class="polaroid-caption">El Último Dinosaurio 🦖</p>
+          <p class="polaroid-caption">El Último Dinosaurio</p>
         </div>
         <div class="polaroid-back">
           <p class="polaroid-dedication">"Aunque los dinosaurios desaparecieron hace millones de años, mi cariño por ti sobrevive al paso del tiempo."</p>
@@ -492,6 +489,19 @@
     </div>
   </div>
 </section>
+
+<!-- Mascota Caminante Global -->
+<div class="pollo-sticker-wrap" id="polloSticker" role="button" tabindex="0" aria-label="Mascota interactiva" title="Toca a tu compañero">
+  <img src="images/pollo_sticker.svg" alt="Mascota" class="sticker-img" id="mascotImg" />
+  <div class="pollo-bubble" id="polloBubble">¡Pío!</div>
+</div>
+
+<!-- Selector de Compañero Flotante -->
+<div class="mascot-selector" id="mascotSelector">
+  <button class="mascot-sel-btn active" data-mascot="pollo">Pollito</button>
+  <button class="mascot-sel-btn" data-mascot="perro">Salchicha</button>
+  <button class="mascot-sel-btn" data-mascot="mosa">Mosasaurus</button>
+</div>
 
 <!-- Scripts modularizados cargados localmente (sin CORS) -->
 <script src="js/particles.js"></script>

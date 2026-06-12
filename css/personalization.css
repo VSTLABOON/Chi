@@ -350,24 +350,35 @@
 
 /* ─── MASCOT PEQUEÑA BURBUJA (POLLITO CAMINANTE) ──────── */
 .pollo-sticker-wrap {
-  position: absolute !important;
-  bottom: 0.2rem !important; /* Colocado directamente en la repisa de madera */
+  position: fixed !important;
+  bottom: 1.5rem !important; /* Flota en la parte inferior de la ventana */
   right: auto !important;
-  left: 1rem;
+  left: 1.5rem;
   width: 75px !important;
   height: 75px !important;
-  background: transparent !important; /* Fondo transparente */
-  border: none !important; /* Sin bordes circulares */
-  box-shadow: none !important; /* Sin sombras circulares */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 !important;
-  animation: polloWalk 20s linear infinite !important; /* Caminata horizontal */
-  overflow: visible !important; /* Permite ver el bocadillo de diálogo */
-  z-index: 50;
+  animation: polloWalk 24s linear infinite !important; /* Caminata horizontal un poco más lenta */
+  overflow: visible !important;
+  z-index: 9999 !important; /* Siempre encima del resto del contenido */
   cursor: pointer;
   box-sizing: border-box;
+  touch-action: none !important; /* Evita scroll al arrastrar en móviles */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.pollo-sticker-wrap.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* Wada wada / waddling image animation (hops, rotates and flips) */
@@ -380,13 +391,44 @@
 }
 
 .pollo-sticker-wrap.hop {
-  animation: polloHopClick 0.45s ease-out !important;
+  animation: polloHopClick 0.85s ease-in-out !important;
 }
 
-/* Giro completo y salto al hacer clic */
+/* Giro completo y salto al hacer clic (ralentizado) */
 @keyframes polloHopClick {
   0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-  50% { transform: translateY(-28px) scale(1.15) rotate(360deg); }
+  50% { transform: translateY(-36px) scale(1.2) rotate(360deg); }
+}
+
+/* Arrastre de la mascota */
+.pollo-sticker-wrap.dragging {
+  position: fixed !important;
+  animation: none !important;
+  transition: none !important;
+  z-index: 10000 !important;
+  cursor: grabbing !important;
+  bottom: auto !important;
+  right: auto !important;
+}
+
+.pollo-sticker-wrap.dragging img {
+  animation: none !important;
+}
+
+/* Retorno planeando al pizarrón */
+.pollo-sticker-wrap.returning {
+  position: fixed !important;
+  animation: none !important;
+  z-index: 10000 !important;
+  transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1), top 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  bottom: auto !important;
+  right: auto !important;
+  cursor: default !important;
+}
+
+.pollo-sticker-wrap.returning img {
+  animation: none !important;
+  transform: scaleY(0.9) scaleX(1.1); /* Efecto aerodinámico de planeo */
 }
 
 /* Horizontal walk path across the blackboard bottom */
@@ -805,7 +847,8 @@
   .pollo-sticker-wrap {
     width: 60px !important;
     height: 60px !important;
-    bottom: 0.1rem !important;
+    bottom: 0.8rem !important; /* Margen seguro del borde inferior móvil */
+    left: 0.8rem !important;
     animation: polloWalkMobile 20s linear infinite !important;
   }
   .pollo-bubble {
@@ -819,3 +862,148 @@
   0%, 100% { left: 0.8rem; }
   50%      { left: calc(100% - 60px - 0.8rem); }
 }
+
+/* Estilización del borrador de texto */
+.borrador {
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--crema);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: background 0.3s, transform 0.2s, border-color 0.3s;
+  user-select: none;
+}
+
+.borrador:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.borrador:active {
+  transform: translateY(0);
+}
+
+/* ─── FLOAT MENÚ SELECTOR DE MASCOTAS ────────────────── */
+.mascot-selector {
+  position: fixed;
+  bottom: 7.2rem; /* Justo arriba de la mascota */
+  left: 1.5rem;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.mascot-selector.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mascot-sel-btn {
+  background: rgba(43, 43, 43, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: var(--crema);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  user-select: none;
+}
+
+.mascot-sel-btn:hover {
+  background: var(--guinda);
+  border-color: var(--dorado);
+  transform: translateX(4px);
+}
+
+.mascot-sel-btn:active {
+  transform: scale(0.95);
+}
+
+.mascot-sel-btn.active {
+  background: var(--guinda);
+  border-color: var(--dorado);
+  color: var(--dorado);
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(232, 201, 138, 0.3);
+}
+
+/* Adaptación móvil del selector (en fila en la parte inferior) */
+@media (max-width: 500px) {
+  .mascot-selector {
+    bottom: 5.5rem !important;
+    left: 0.8rem !important;
+    flex-direction: row !important; /* Diseño horizontal para móviles */
+    gap: 5px !important;
+  }
+  
+  .mascot-sel-btn {
+    font-size: 0.65rem !important;
+    padding: 3px 8px !important;
+  }
+  
+  .mascot-sel-btn:hover {
+    transform: translateY(-2px); /* Deslizamiento vertical en móviles en lugar de horizontal */
+  }
+}
+
+/* ─── CHALK DRAWING CANVAS ───────────────────────── */
+#chalkCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: 6px;
+  cursor: crosshair;
+  touch-action: none; /* Disables standard touch panning/scrolling while drawing */
+}
+
+/* Ensure the typewriter text is on top and does not block clicks/touches */
+.pizarron-surface .pizarron-text {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ─── MASCOT SPARKLES ────────────────────────────── */
+.mascot-sparkle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001; /* Above mascot */
+  animation: sparkleFade 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes sparkleFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) translate(var(--tx, 0), var(--ty, 0));
+  }
+}
+
