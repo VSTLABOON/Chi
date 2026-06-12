@@ -379,18 +379,88 @@ function initPizarron() {
       }, 600);
     }
 
-    // Pointer Events: Arrastre unificado raton y touch
-    polloSticker.addEventListener('pointerdown', (e) => {
-      if (isReturning) return;
-      
-      // Evitar propagar a otros elementos de abajo
-      e.stopPropagation();
-      
-      // Capturar puntero
-      if (typeof polloSticker.setPointerCapture === 'function') {
-        polloSticker.setPointerCapture(e.pointerId);
+    // Robust Touch and Pointer Drag-and-Drop Implementation
+    let activePointerId = null;
+
+    // Prevent default scrolling on mobile touch when dragging mascot
+    polloSticker.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+
+    function onPointerMove(e) {
+      if (activePointerId !== e.pointerId) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      // Check movement threshold
+      if (!isDragging && (Math.abs(dx) > dragThreshold || Math.abs(dy) > dragThreshold)) {
+        isDragging = true;
+        
+        // Lock position in absolute fixed pixels
+        const rect = polloSticker.getBoundingClientRect();
+        polloSticker.style.left = rect.left + 'px';
+        polloSticker.style.top = rect.top + 'px';
+        polloSticker.style.bottom = 'auto';
+
+        polloSticker.classList.add('dragging');
+        polloBubble.classList.remove('open');
       }
 
+      if (isDragging) {
+        polloSticker.style.left = (initialX + dx) + 'px';
+        polloSticker.style.top = (initialY + dy) + 'px';
+        
+        // Spawn drag sparkles
+        const rect = polloSticker.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        createSparkle(centerX, centerY);
+      }
+    }
+
+    function onPointerUp(e) {
+      if (activePointerId !== e.pointerId) return;
+      activePointerId = null;
+
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerCancel);
+
+      const duration = Date.now() - startTime;
+
+      if (!isDragging) {
+        // Fast click or tap
+        if (duration < 350) {
+          triggerHopAndPhrase();
+        }
+      } else {
+        // Dropped after dragging
+        startReturnAnimation();
+      }
+
+      isDragging = false;
+    }
+
+    function onPointerCancel(e) {
+      if (activePointerId !== e.pointerId) return;
+      activePointerId = null;
+
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerCancel);
+
+      if (isDragging) {
+        startReturnAnimation();
+      }
+      isDragging = false;
+    }
+
+    polloSticker.addEventListener('pointerdown', (e) => {
+      if (isReturning) return;
+      e.stopPropagation();
+
+      activePointerId = e.pointerId;
       isDragging = false;
       startTime = Date.now();
 
@@ -400,69 +470,10 @@ function initPizarron() {
 
       startX = e.clientX;
       startY = e.clientY;
-    });
 
-    polloSticker.addEventListener('pointermove', (e) => {
-      if (typeof polloSticker.hasPointerCapture === 'function' && !polloSticker.hasPointerCapture(e.pointerId)) return;
-      if (typeof polloSticker.hasPointerCapture !== 'function' && !isDragging && Date.now() - startTime < 100) return;
-
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-
-      // Si supera el umbral de movimiento, iniciamos el arrastre
-      if (!isDragging && (Math.abs(dx) > dragThreshold || Math.abs(dy) > dragThreshold)) {
-        isDragging = true;
-        
-        // Bloquear posicion actual en coordenadas fijas
-        const rect = polloSticker.getBoundingClientRect();
-        polloSticker.style.left = rect.left + 'px';
-        polloSticker.style.top = rect.top + 'px';
-        polloSticker.style.bottom = 'auto';
-
-        polloSticker.classList.add('dragging');
-        polloBubble.classList.remove('open'); // Ocultar dialogo al arrastrar
-      }
-
-      if (isDragging) {
-        polloSticker.style.left = (initialX + dx) + 'px';
-        polloSticker.style.top = (initialY + dy) + 'px';
-        
-        // Sparkle trail on drag
-        const rect = polloSticker.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        createSparkle(centerX, centerY);
-      }
-    });
-
-    polloSticker.addEventListener('pointerup', (e) => {
-      if (typeof polloSticker.releasePointerCapture === 'function' && polloSticker.hasPointerCapture(e.pointerId)) {
-        polloSticker.releasePointerCapture(e.pointerId);
-      }
-
-      const duration = Date.now() - startTime;
-
-      if (!isDragging) {
-        // Fue un click/tap rapido
-        if (duration < 350) {
-          triggerHopAndPhrase();
-        }
-      } else {
-        // Fue un arrastre suelto
-        startReturnAnimation();
-      }
-
-      isDragging = false;
-    });
-
-    polloSticker.addEventListener('pointercancel', (e) => {
-      if (typeof polloSticker.releasePointerCapture === 'function' && polloSticker.hasPointerCapture(e.pointerId)) {
-        polloSticker.releasePointerCapture(e.pointerId);
-      }
-      if (isDragging) {
-        startReturnAnimation();
-      }
-      isDragging = false;
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerCancel);
     });
   }
 }

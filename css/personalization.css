@@ -805,13 +805,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border: 0;
-  opacity: 0.6; /* Let some darkness from backend bleed in */
+  opacity: 0.75; /* Let the background video be clearer and brighter */
 }
 
 .thriller-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(32, 4, 13, 0.78); /* Deep dark guinda overlay for readability */
+  background: rgba(123, 29, 58, 0.55); /* Softer and more transparent guinda overlay */
   z-index: 2;
 }
 

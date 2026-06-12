@@ -340,3 +340,18 @@
   color: var(--rosa);
   opacity: 0.8;
 }
+
+/* ─── LOADING AUDIO STATE ANIMATIONS ──────────────── */
+.music-player.loading .tape-reel {
+  animation: rotateReels 1s linear infinite !important;
+  opacity: 0.5;
+}
+
+.music-player.loading .current-track-title {
+  animation: pulseLoadingText 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseLoadingText {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}

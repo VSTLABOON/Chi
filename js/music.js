@@ -61,6 +61,19 @@ function isPlaying() {
   return playingState;
 }
 
+// Preload the next track's audio to minimize loading delay on switch
+let preloadAudio = null;
+function preloadNextTrack() {
+  const nextIndex = (currentTrackIndex + 1) % playlist.length;
+  const nextTrack = playlist[nextIndex];
+  if (!preloadAudio) {
+    preloadAudio = document.createElement('audio');
+    preloadAudio.preload = 'auto';
+  }
+  preloadAudio.src = nextTrack.url;
+  preloadAudio.load();
+}
+
 function loadTrack(index) {
   currentTrackIndex = index;
   const track = playlist[index];
@@ -84,17 +97,13 @@ function loadTrack(index) {
       else item.classList.remove('active');
     });
   }
+  
+  preloadNextTrack();
 }
 
 function playTrack() {
   if (!bgAudio) return;
-  bgAudio.play()
-    .then(() => {
-      playingState = true;
-      if (musicBtn) musicBtn.classList.add('playing');
-      if (musicPlayer) musicPlayer.classList.add('playing');
-    })
-    .catch(err => console.log("Audio play failed: ", err));
+  bgAudio.play().catch(err => console.log("Audio play failed: ", err));
 }
 
 function pauseTrack() {
@@ -102,8 +111,9 @@ function pauseTrack() {
   bgAudio.pause();
   playingState = false;
   if (musicBtn) musicBtn.classList.remove('playing');
-  if (musicPlayer) musicPlayer.classList.remove('playing');
+  if (musicPlayer) musicPlayer.classList.remove('playing', 'loading');
 }
+
 
 function loadAndPlayTrack(index) {
   loadTrack(index);
@@ -128,6 +138,44 @@ function initMusic() {
 
   // Set default audio volume
   bgAudio.volume = 0.4;
+
+  // HTML5 Audio Event Listeners for precise visual state tracking
+  bgAudio.addEventListener('loadstart', () => {
+    musicPlayer.classList.add('loading');
+    const titleEl = document.getElementById('currentTrackTitle');
+    if (titleEl && playlist[currentTrackIndex]) {
+      titleEl.textContent = playlist[currentTrackIndex].title + " (Cargando...)";
+    }
+  });
+
+  bgAudio.addEventListener('waiting', () => {
+    musicPlayer.classList.add('loading');
+  });
+
+  bgAudio.addEventListener('playing', () => {
+    musicPlayer.classList.remove('loading');
+    musicPlayer.classList.add('playing');
+    musicBtn.classList.add('playing');
+    playingState = true;
+    
+    // Restore clean title
+    const titleEl = document.getElementById('currentTrackTitle');
+    if (titleEl && playlist[currentTrackIndex]) {
+      titleEl.textContent = playlist[currentTrackIndex].title;
+    }
+  });
+
+  bgAudio.addEventListener('play', () => {
+    playingState = true;
+    musicBtn.classList.add('playing');
+    musicPlayer.classList.add('playing');
+  });
+
+  bgAudio.addEventListener('pause', () => {
+    playingState = false;
+    musicBtn.classList.remove('playing');
+    musicPlayer.classList.remove('playing', 'loading');
+  });
 
   // Populate Playlist in DOM
   playlist.forEach((track, index) => {

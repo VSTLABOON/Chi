@@ -163,14 +163,41 @@
       <p>Porque los buenos libros siempre encuentran a su lectora correcta.</p>
     </div>
 
-    <div class="book-3d" tabindex="0" role="img" aria-label="Libro animado: Enciclopedia de Samara">
-      <div class="book-cover">
-        <div class="book-front">
+    <div class="book-3d" id="encyclopediaBook" tabindex="0" role="button" aria-label="Abrir Enciclopedia de Samara">
+      <div class="book-inner-3d">
+        <!-- Back Cover -->
+        <div class="book-side back-side"></div>
+        
+        <!-- Inside Pages -->
+        <div class="book-side page-side page-inner-2">
+          <div class="page-content">
+            <h4>Enciclopedia Mesozoica</h4>
+            <p>Registros de la era en que la educación y el cariño sobrevivieron al impacto del meteorito.</p>
+            <span class="page-number">Pág. 2</span>
+          </div>
+        </div>
+        
+        <div class="book-side page-side page-inner-1">
+          <div class="page-content">
+            <h4>Índice de Materias</h4>
+            <ul>
+              <li>I. Dinosaurios y Tareas</li>
+              <li>II. El Ancestro Pío</li>
+              <li>III. Thriller de los 80</li>
+              <li>IV. El Mar del Cretácico</li>
+            </ul>
+            <span class="page-number">Pág. 1</span>
+          </div>
+        </div>
+
+        <!-- Front Cover -->
+        <div class="book-side front-side">
           <div class="book-front-img-wrap">
             <img src="images/libro_portada.svg" alt="Libro Portada" class="sticker-img" />
           </div>
           <h3>Enciclopedia<br>de Samara</h3>
           <p class="book-author">Vol. I: Edición Única</p>
+          <span class="book-instruction-hint">Toca para abrir</span>
         </div>
       </div>
     </div>
