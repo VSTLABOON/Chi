@@ -50,9 +50,9 @@ const playlist = [
     url: "https://archive.org/download/AlsPlaylistMixedGenre/Michael%20Jackson%20-%20Love%20Never%20Felt%20So%20Good%20feat.%20Justin%20Timberlake.mp3"
   },
   {
-    title: "Life Is a Highway (Cars 1)",
+    title: "Bless the Broken Road (Cars 1 Band)",
     artist: "Rascal Flatts",
-    url: "https://archive.org/download/rascal-flatts-life-is-a-highway/Rascal%20Flatts%20-%20Life%20Is%20A%20Highway.mp3"
+    url: "https://archive.org/download/BlessTheBrokenRoad/Rascal%20Flatts%20-%20Bless%20The%20Broken%20Road.mp3"
   },
   {
     title: "Worldwide",
@@ -60,9 +60,9 @@ const playlist = [
     url: "https://archive.org/download/WorldwideBTR/Big%20Time%20Rush%20-%20Worldwide%20%28Lyrics%29.mp3"
   },
   {
-    title: "Danza Kuduro (Fast 5)",
-    artist: "Don Omar ft. Lucenzo",
-    url: "https://archive.org/download/don-omar-danza-kuduro-ft-lucenzo/Don%20Omar%20-%20Danza%20Kuduro%20ft.%20Lucenzo.mp3"
+    title: "See You Again (Fast & Furious)",
+    artist: "Wiz Khalifa ft. Charlie Puth",
+    url: "https://archive.org/download/wiz-khalifa-see-you-again-ft.-charlie-puth/Wiz%20Khalifa%20-%20See%20You%20Again%20ft.%20Charlie%20Puth.mp3"
   },
   {
     title: "Goosebumps",
@@ -75,24 +75,24 @@ const playlist = [
     url: "https://archive.org/download/delarose-carita-triste/caritatriste.mp3"
   },
   {
-    title: "Do I Wanna Know?",
+    title: "I Wanna Be Yours",
     artist: "Arctic Monkeys",
-    url: "https://archive.org/download/arctic-monkeys-do-i-wanna-know/Arctic%20Monkeys%20-%20Do%20I%20Wanna%20Know.mp3"
+    url: "https://archive.org/download/arctic-monkeys-i-wanna-be-yours/Arctic%20Monkeys%20-%20I%20Wanna%20Be%20Yours.mp3"
   },
   {
-    title: "Toxic",
+    title: "Sometimes",
     artist: "Britney Spears",
-    url: "https://archive.org/download/britney-spears-toxic_202011/Britney%20Spears%20-%20Toxic.mp3"
+    url: "https://archive.org/download/britneyspearssometimes/Britney%20Spears%20-%20Sometimes.mp3"
   },
   {
-    title: "Hero (Spider-Man 1)",
-    artist: "Chad Kroeger",
-    url: "https://archive.org/download/chad-kroeger-hero-spiderman/Chad%20Kroeger%20-%20Hero.mp3"
+    title: "Signal Fire (Spider-Man 3)",
+    artist: "Snow Patrol",
+    url: "https://archive.org/download/snow-patrol-signal-fire/Snow%20Patrol%20-%20Signal%20Fire.mp3"
   },
   {
-    title: "A-Punk (Son Como Niños 1)",
-    artist: "Vampire Weekend",
-    url: "https://archive.org/download/vampire-weekend-a-punk/Vampire%20Weekend%20-%20A-Punk.mp3"
+    title: "Grow Old With You (Son Como Niños)",
+    artist: "Adam Sandler",
+    url: "https://archive.org/download/GrowOldWithYouAdamSandler/Grow%20Old%20With%20You.mp3"
   }
 ];
 
