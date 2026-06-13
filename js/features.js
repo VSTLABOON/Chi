@@ -633,13 +633,21 @@
       document.body.style.overflow = '';
     }
 
-    /* Attach click to each polaroid */
+    /* Attach click to each polaroid for flipping, and zoom button for lightbox */
     cards.forEach(function (card, i) {
       card.style.cursor = 'pointer';
+      
       card.addEventListener('click', function (e) {
-        e.stopPropagation();
-        openLightbox(i);
+        card.classList.toggle('flipped');
       });
+      
+      var zoomBtn = card.querySelector('.polaroid-zoom-btn');
+      if (zoomBtn) {
+        zoomBtn.addEventListener('click', function (e) {
+          e.stopPropagation(); // prevent flipping the card
+          openLightbox(i);
+        });
+      }
     });
 
     /* Navigation */

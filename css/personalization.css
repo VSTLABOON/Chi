@@ -118,8 +118,7 @@
   border-radius: 8px;
 }
 
-.polaroid-card:hover .polaroid-inner,
-.polaroid-card:focus .polaroid-inner {
+.polaroid-card.flipped .polaroid-inner {
   transform: rotateY(180deg);
   box-shadow: 0 15px 35px rgba(90,18,40,0.15);
 }
@@ -139,6 +138,40 @@
 .polaroid-front {
   z-index: 2;
   transform: rotateY(0deg);
+  position: relative;
+}
+
+.polaroid-zoom-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid var(--dorado);
+  color: var(--guinda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.polaroid-zoom-btn:hover {
+  background: var(--guinda);
+  color: var(--crema);
+  transform: scale(1.15);
+  border-color: var(--guinda);
+}
+
+.polaroid-zoom-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5px;
 }
 
 .polaroid-back {
