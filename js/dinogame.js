@@ -583,7 +583,6 @@ function initDinoGame() {
       frameId = null;
       return;
     }
-    resize();
     update();
     render();
     frameId = requestAnimationFrame(loop);

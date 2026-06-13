@@ -522,7 +522,7 @@
     var count = 15 + Math.floor(Math.random() * 6); // 15-20
     for (var i = 0; i < count; i++) {
       var el = document.createElement('div');
-      el.className = 'firefly-particle';
+      el.className = 'firefly';
       el.style.left = Math.random() * 100 + 'vw';
       el.style.top  = Math.random() * 100 + 'vh';
       var duration = (3 + Math.random() * 4).toFixed(1);
@@ -886,6 +886,7 @@
       dot.style.opacity = String(0.7 - i * 0.12);
       dot.style.width  = (4 - i * 0.5) + 'px';
       dot.style.height = (4 - i * 0.5) + 'px';
+      dot.style.display = 'none'; // Hide until first mouse movement
       document.body.appendChild(dot);
       trailDots.push(dot);
       trailPositions.push({ x: 0, y: 0 });
@@ -913,7 +914,15 @@
       raf = requestAnimationFrame(updateCursor);
     }
 
+    var hasMoved = false;
     document.addEventListener('mousemove', function (e) {
+      if (!hasMoved) {
+        hasMoved = true;
+        cursor.classList.add('active');
+        trailDots.forEach(function (d) {
+          d.style.display = 'block';
+        });
+      }
       mouseX = e.clientX;
       mouseY = e.clientY;
     }, { passive: true });

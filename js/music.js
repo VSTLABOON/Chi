@@ -207,9 +207,10 @@ function getAudioElement(index) {
 }
 
 function loadTrack(index) {
-  // Pause any currently playing audio in cache
+  // Pause and reset any currently playing audio in cache
   if (bgAudio) {
     bgAudio.pause();
+    bgAudio.currentTime = 0;
   }
 
   currentTrackIndex = index;
