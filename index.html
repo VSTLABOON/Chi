@@ -54,7 +54,7 @@
 <!-- ══════════ MUSIC PLAYER (WIDGET) ══════════ -->
 <div class="music-player" id="musicPlayer">
   <button class="music-btn" id="musicBtn" aria-label="Abrir reproductor de música" title="Playlist para Samara">
-    <span class="music-icon">♪</span>
+    <span class="music-icon"><i data-lucide="music"></i></span>
   </button>
   <div class="playlist-panel" id="playlistPanel">
     <div class="walkman-player">
@@ -85,9 +85,9 @@
       
       <!-- Walkman Buttons -->
       <div class="walkman-buttons">
-        <button class="walkman-btn" id="prevBtn" title="Anterior">◀◀</button>
-        <button class="walkman-btn play-pause-btn" id="playPauseBtn" title="Reproducir/Pausar">▶</button>
-        <button class="walkman-btn" id="nextBtn" title="Siguiente">▶▶</button>
+        <button class="walkman-btn" id="prevBtn" title="Anterior"><i data-lucide="skip-back"></i></button>
+        <button class="walkman-btn play-pause-btn" id="playPauseBtn" title="Reproducir/Pausar"><i data-lucide="play"></i></button>
+        <button class="walkman-btn" id="nextBtn" title="Siguiente"><i data-lucide="skip-forward"></i></button>
       </div>
 
       <!-- Progress bar -->
@@ -414,7 +414,7 @@
             <span class="tiza tiza-amarilla" data-color="#E8C98A" title="Tiza Amarilla"></span>
             <span class="tiza tiza-azul" data-color="#B8D4EE" title="Tiza Azul"></span>
           </div>
-          <div class="borrador" id="borradorPizarron" title="Borrar y volver a escribir">Borrar</div>
+          <div class="borrador" id="borradorPizarron" title="Borrar y volver a escribir"><i data-lucide="eraser"></i> Limpiar</div>
         </div>
       </div>
     </div>
@@ -483,31 +483,31 @@
   <h2>Del Cretácico al Presente</h2>
   <div class="timeline-track" id="timelineTrack">
     <div class="timeline-card">
-      <div class="timeline-card-icon">I</div>
+      <div class="timeline-card-icon"><i data-lucide="globe"></i></div>
       <span class="timeline-card-date">72 millones a.C.</span>
       <h4>Era del Cretácico</h4>
       <p>Los mosasaurus reinan el océano Tethys. El mundo es cálido, verde y lleno de criaturas que aún no saben que sus días están contados.</p>
     </div>
     <div class="timeline-card">
-      <div class="timeline-card-icon">II</div>
+      <div class="timeline-card-icon"><i data-lucide="zap"></i></div>
       <span class="timeline-card-date">66 millones a.C.</span>
       <h4>El Gran Impacto</h4>
       <p>Un asteroide de 12 km golpea la Tierra. Todo cambia. Pero en algún rincón, un pequeño ancestro emplumado sobrevive.</p>
     </div>
     <div class="timeline-card">
-      <div class="timeline-card-icon">III</div>
+      <div class="timeline-card-icon"><i data-lucide="egg"></i></div>
       <span class="timeline-card-date">10,000 a.C.</span>
       <h4>Nace el Primer Pollo</h4>
       <p>Del Gallus gallus salvaje al pollo doméstico. 65 millones de años de evolución para llegar a la milanesa perfecta.</p>
     </div>
     <div class="timeline-card">
-      <div class="timeline-card-icon">IV</div>
+      <div class="timeline-card-icon"><i data-lucide="disc"></i></div>
       <span class="timeline-card-date">1982 d.C.</span>
       <h4>Thriller de MJ</h4>
       <p>Michael Jackson lanza el disco más vendido de todos los tiempos. El moonwalk desafía la gravedad. El mundo nunca vuelve a ser igual.</p>
     </div>
     <div class="timeline-card">
-      <div class="timeline-card-icon">V</div>
+      <div class="timeline-card-icon"><i data-lucide="mail"></i></div>
       <span class="timeline-card-date">2026 d.C.</span>
       <h4>Samara Recibe Esta Carta</h4>
       <p>Tras 72 millones de años, el universo finalmente logra lo que intentaba: que una maestra extraordinaria lea estas palabras.</p>
@@ -622,18 +622,18 @@
     <span class="bar"></span>
   </button>
   <div class="mascot-selector" id="mascotSelector">
-    <button class="mascot-sel-btn active" data-mascot="pollo">Pollito</button>
-    <button class="mascot-sel-btn" data-mascot="perro">Salchicha</button>
-    <button class="mascot-sel-btn" data-mascot="pez">Pecesito</button>
+    <button class="mascot-sel-btn active" data-mascot="pollo"><i data-lucide="bird"></i> Pollito</button>
+    <button class="mascot-sel-btn" data-mascot="perro"><i data-lucide="dog"></i> Salchicha</button>
+    <button class="mascot-sel-btn" data-mascot="pez"><i data-lucide="fish"></i> Pecesito</button>
   </div>
 </div>
 
 <!-- Lightbox Overlay -->
 <div class="lightbox-overlay" id="lightboxOverlay">
   <div class="lightbox-content" id="lightboxContent">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
-    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Anterior">&lsaquo;</button>
-    <button class="lightbox-nav next" id="lightboxNext" aria-label="Siguiente">&rsaquo;</button>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
     <div class="lightbox-image" id="lightboxImage"></div>
     <p class="lightbox-caption" id="lightboxCaption"></p>
   </div>
@@ -653,6 +653,9 @@
 
 <!-- Cursor Personalizado (solo desktop) -->
 <div class="custom-cursor" id="customCursor"></div>
+
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <!-- Scripts modularizados cargados localmente (sin CORS) -->
 <script src="js/particles.js"></script>

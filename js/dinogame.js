@@ -39,9 +39,9 @@ function initDinoGame() {
   window.addEventListener('resize', resize);
 
   /* ---- game state ---- */
-  var GRAVITY       = 0.55;
-  var JUMP_FORCE    = -10.5;
-  var BASE_SPEED    = 4;
+  var GRAVITY       = 0.42;
+  var JUMP_FORCE    = -9.2;
+  var BASE_SPEED    = 3.2;
   var GROUND_Y;            // set each frame from canvas.height
   var GROUND_H = 2;
 
@@ -469,7 +469,7 @@ function initDinoGame() {
     if (!started || gameOver) return;
 
     /* speed ramp */
-    gameSpeed = BASE_SPEED + score * 0.008;
+    gameSpeed = BASE_SPEED + score * 0.003;
     if (gameSpeed > 12) gameSpeed = 12;
 
     /* chicken physics */
@@ -498,7 +498,7 @@ function initDinoGame() {
     if (spawnTimer >= spawnInterval) {
       spawnTimer = 0;
       spawnMeteor();
-      spawnInterval = Math.max(35, 90 - score * 0.3 + randInt(-10, 10));
+      spawnInterval = Math.max(50, 120 - score * 0.2 + randInt(-15, 15));
     }
 
     /* move meteorites */
@@ -512,7 +512,7 @@ function initDinoGame() {
     /* collision detection */
     var cxCenter = chicken.x * scale + (chicken.w * scale) / 2;
     var cyCenter = chicken.y + (chicken.h * scale) / 2;
-    var cRadius  = Math.min(chicken.w, chicken.h) * scale * 0.4;
+    var cRadius  = Math.min(chicken.w, chicken.h) * scale * 0.25;
 
     for (var k = 0; k < meteorites.length; k++) {
       var m = meteorites[k];
@@ -521,7 +521,7 @@ function initDinoGame() {
       var dx = cxCenter - mx;
       var dy = cyCenter - my;
       var dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < cRadius + m.r * 0.8) {
+      if (dist < cRadius + m.r * 0.55) {
         gameOver = true;
         return;
       }

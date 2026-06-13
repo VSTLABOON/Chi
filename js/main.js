@@ -88,4 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
     io.observe(el);
   });
+
+  // Initialize Lucide Icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 });

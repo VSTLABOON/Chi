@@ -210,6 +210,15 @@ function initPizarron() {
   let startTime = 0;
   const dragThreshold = 8; // píxeles de movimiento mínimo para ser arrastre
 
+  // JS movement coordinates and state
+  let posX = 24;
+  let posY = window.innerHeight - 120;
+  let targetX = posX;
+  let targetY = posY;
+  let mascotState = 'idle'; // 'idle', 'walking'
+  let pauseTimer = 120;
+  let waddleTime = 0;
+
   function triggerHopAndPhrase() {
     if (polloSticker.classList.contains('hop')) return;
     polloSticker.classList.add('hop');
@@ -234,63 +243,79 @@ function initPizarron() {
     }, 4000);
   }
 
-  function startReturnAnimation() {
-    isReturning = true;
-    polloSticker.classList.remove('dragging');
-    polloSticker.classList.add('returning');
-
-    // La coordenada de retorno es la posicion fixed por defecto del pollito (bottom: 1.5rem, left: 1.5rem)
-    const isMobile = window.innerWidth <= 500;
-    const chickSize = isMobile ? 60 : 75;
-    const margin = isMobile ? 12 : 24; // Margen adaptativo
-
-    const targetLeft = margin;
-    const targetTop = window.innerHeight - chickSize - margin;
-
-    polloSticker.style.left = targetLeft + 'px';
-    polloSticker.style.top = targetTop + 'px';
-
-    // Sparkle trail during return glide
-    const sparkleInterval = setInterval(() => {
-      if (!isReturning) {
-        clearInterval(sparkleInterval);
-        return;
-      }
+  function updateMascotLoop() {
+    if (isDragging) {
       const rect = polloSticker.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      createSparkle(centerX, centerY);
-    }, 30);
+      posX = rect.left;
+      posY = rect.top;
+      targetX = posX;
+      targetY = posY;
+      requestAnimationFrame(updateMascotLoop);
+      return;
+    }
 
-    // Una vez que termine el planeo (800ms de transicion), reanudamos la caminata
-    setTimeout(() => {
-      clearInterval(sparkleInterval);
-      if (polloSticker.classList.contains('returning')) {
-        polloSticker.classList.remove('returning');
+    if (polloSticker.classList.contains('hop')) {
+      requestAnimationFrame(updateMascotLoop);
+      return;
+    }
+
+    const margin = 50;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    if (mascotState === 'idle') {
+      pauseTimer--;
+      if (pauseTimer <= 0) {
+        // Pick random target in any direction within screen safe boundaries
+        targetX = Math.random() * (w - 2 * margin) + margin;
+        targetY = Math.random() * (h - 220) + 120;
+        mascotState = 'walking';
       }
-      
-      // Limpiamos coordenadas manuales y restauramos el fixed de CSS por defecto
-      polloSticker.style.left = '';
-      polloSticker.style.top = '';
-      polloSticker.style.bottom = '';
-      polloSticker.style.right = '';
 
-      isReturning = false;
+      // Gentle breathing scaling when idle
+      waddleTime += 0.05;
+      const breathe = 1 + Math.sin(waddleTime) * 0.03;
+      if (mascotImg) {
+        mascotImg.style.transform = `scale(${breathe})`;
+      }
+    } else if (mascotState === 'walking') {
+      const dx = targetX - posX;
+      const dy = targetY - posY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Mostrar frase de aterrizaje divertido segun la mascota activa
-      let landingText = "¡Aterrizaje perfecto!";
-      if (activeMascot === 'perro') landingText = "¡Llegué de un salto!";
-      else if (activeMascot === 'pez') landingText = "¡Chapuzón completado!";
-      
-      polloBubble.textContent = landingText;
-      polloBubble.classList.add('open');
-      
-      if (bubbleTimeout) clearTimeout(bubbleTimeout);
-      bubbleTimeout = setTimeout(() => {
-        polloBubble.classList.remove('open');
-      }, 3000);
+      if (dist < 5) {
+        mascotState = 'idle';
+        pauseTimer = Math.random() * 180 + 120; // 2-5 seconds
+        
+        // 10% chance to speak on arrival
+        if (Math.random() < 0.1) {
+          triggerHopAndPhrase();
+        }
+      } else {
+        // Slow gentle speed (0.7px per frame)
+        const speed = 0.7;
+        const vx = (dx / dist) * speed;
+        const vy = (dy / dist) * speed;
 
-    }, 800);
+        posX += vx;
+        posY += vy;
+
+        polloSticker.style.left = posX + 'px';
+        polloSticker.style.top = posY + 'px';
+
+        // Waddling oscillation (rotation of ±6 degrees, very slow and gentle)
+        waddleTime += 0.06;
+        const waddleAngle = Math.sin(waddleTime) * 6;
+        // Flip image based on direction
+        const flip = vx > 0 ? 1 : -1;
+
+        if (mascotImg) {
+          mascotImg.style.transform = `scaleX(${flip}) rotate(${waddleAngle}deg)`;
+        }
+      }
+    }
+
+    requestAnimationFrame(updateMascotLoop);
   }
 
   if (polloSticker && polloBubble) {
@@ -326,7 +351,7 @@ function initPizarron() {
         btn.addEventListener('click', (e) => {
           e.stopPropagation(); // Evitar que el clic en el boton active la mascota
           
-          if (isReturning || isDragging) return;
+          if (isDragging) return;
           
           const mascot = btn.getAttribute('data-mascot');
           if (activeMascot === mascot) return;
@@ -345,12 +370,14 @@ function initPizarron() {
           }
           
           // Pequeño efecto visual de cambio (escala)
-          polloSticker.style.transform = 'scale(0.3)';
-          setTimeout(() => {
-            polloSticker.style.transform = '';
-          }, 150);
+          if (mascotImg) {
+            mascotImg.style.transform = 'scale(0.3)';
+            setTimeout(() => {
+              mascotImg.style.transform = 'scale(1)';
+            }, 150);
+          }
           
-          // Frase de presentacion del nuevo compañero
+          // Frase de presentación del nuevo compañero
           let introText = "Listo para aprender.";
           if (mascot === 'pollo') introText = "Listo para aprender.";
           else if (mascot === 'perro') introText = "Guau. Listo para jugar.";
@@ -454,8 +481,18 @@ function initPizarron() {
           triggerHopAndPhrase();
         }
       } else {
-        // Dropped after dragging
-        startReturnAnimation();
+        // Dropped after dragging - stay where dropped!
+        polloSticker.classList.remove('dragging');
+        mascotState = 'idle';
+        pauseTimer = 90; // pause for 1.5 seconds before walking
+
+        // Burst of premium sparkles on drop
+        const rect = polloSticker.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        for (let i = 0; i < 8; i++) {
+          createSparkle(centerX, centerY);
+        }
       }
 
       isDragging = false;
@@ -470,13 +507,14 @@ function initPizarron() {
       window.removeEventListener('pointercancel', onPointerCancel);
 
       if (isDragging) {
-        startReturnAnimation();
+        polloSticker.classList.remove('dragging');
+        mascotState = 'idle';
+        pauseTimer = 60;
       }
       isDragging = false;
     }
 
     polloSticker.addEventListener('pointerdown', (e) => {
-      if (isReturning) return;
       e.stopPropagation();
 
       activePointerId = e.pointerId;
@@ -494,5 +532,20 @@ function initPizarron() {
       window.addEventListener('pointerup', onPointerUp);
       window.addEventListener('pointercancel', onPointerCancel);
     });
+
+    // Initialize position and start waddle loop
+    polloSticker.style.animation = 'none';
+    if (mascotImg) mascotImg.style.animation = 'none';
+
+    // Set starting position at bottom left
+    posX = 24;
+    posY = window.innerHeight - 120;
+    targetX = posX;
+    targetY = posY;
+    polloSticker.style.left = posX + 'px';
+    polloSticker.style.top = posY + 'px';
+
+    // Start movement loop
+    requestAnimationFrame(updateMascotLoop);
   }
 }

@@ -84,6 +84,19 @@ function isPlaying() {
   return playingState;
 }
 
+function updatePlayPauseIcon(isPlayingState) {
+  const btn = document.getElementById('playPauseBtn');
+  if (!btn) return;
+  if (isPlayingState) {
+    btn.innerHTML = '<i data-lucide="pause"></i>';
+  } else {
+    btn.innerHTML = '<i data-lucide="play"></i>';
+  }
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
 // Get or create preloaded audio element for the given index
 function getAudioElement(index) {
   if (audioCache[index]) {
@@ -127,6 +140,7 @@ function getAudioElement(index) {
       if (titleEl) {
         titleEl.textContent = playlist[currentTrackIndex].title;
       }
+      updatePlayPauseIcon(true);
     }
   });
 
@@ -135,6 +149,7 @@ function getAudioElement(index) {
       playingState = true;
       musicBtn.classList.add('playing');
       musicPlayer.classList.add('playing');
+      updatePlayPauseIcon(true);
     }
   });
 
@@ -143,6 +158,7 @@ function getAudioElement(index) {
       playingState = false;
       musicBtn.classList.remove('playing');
       musicPlayer.classList.remove('playing', 'loading');
+      updatePlayPauseIcon(false);
     }
   });
 
@@ -236,6 +252,7 @@ function pauseTrack() {
   playingState = false;
   if (musicBtn) musicBtn.classList.remove('playing');
   if (musicPlayer) musicPlayer.classList.remove('playing', 'loading');
+  updatePlayPauseIcon(false);
 }
 
 function loadAndPlayTrack(index) {
