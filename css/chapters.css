@@ -138,6 +138,7 @@
 .book-section {
   background: linear-gradient(135deg, var(--lavanda) 0%, var(--rosa) 100%);
   padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  overflow: visible; /* Allow 3D book pages to extend beyond section bounds when opened */
 }
 
 .book-inner {
@@ -168,11 +169,12 @@
 /* El libro 3D Interactivo y Animado */
 .book-3d {
   width: min(280px, 80vw);
-  height: min(380px, 50vw);
+  height: min(380px, 110vw); /* taller ratio on mobile so pages are visible */
   margin: 0 auto 2.5rem;
   perspective: 1500px;
   cursor: pointer;
   position: relative;
+  overflow: visible;
 }
 
 .book-inner-3d {
@@ -311,6 +313,49 @@
 @keyframes pulseHint {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
+}
+
+/* Mobile responsive for 3D book */
+@media (max-width: 640px) {
+  .book-3d {
+    width: min(220px, 75vw);
+    height: min(300px, 100vw);
+    perspective: 1000px;
+  }
+  .book-inner-3d {
+    transform: rotateX(5deg) rotateY(-12deg);
+  }
+  .book-3d:hover .book-inner-3d,
+  .book-3d:focus .book-inner-3d {
+    transform: rotateX(5deg) rotateY(-18deg);
+  }
+  .book-3d.open .book-inner-3d {
+    transform: rotateX(5deg) rotateY(0deg);
+  }
+  .book-3d.open .book-side.front-side {
+    transform: rotateY(-130deg);
+  }
+  .book-3d.open .book-side.page-inner-1 {
+    transform: rotateY(-120deg);
+  }
+  .book-3d.open .book-side.page-inner-2 {
+    transform: rotateY(-10deg);
+  }
+  .book-side.page-side h4 {
+    font-size: 1rem;
+  }
+  .book-side.page-side p {
+    font-size: 0.8rem;
+  }
+  .book-side.page-side ul {
+    font-size: 0.78rem;
+  }
+  .book-side.front-side h3 {
+    font-size: 1.2rem;
+  }
+  .book-side.front-side .book-author {
+    font-size: 0.6rem;
+  }
 }
 
 .book-front-img-wrap {

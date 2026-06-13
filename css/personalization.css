@@ -391,7 +391,7 @@
 }
 
 .pollo-sticker-wrap.hop {
-  animation: polloHopClick 0.85s ease-in-out !important;
+  animation: polloHopClick 1.4s ease-in-out !important;
 }
 
 /* Giro completo y salto al hacer clic (ralentizado) */
@@ -811,7 +811,7 @@
 .thriller-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(123, 29, 58, 0.55); /* Softer and more transparent guinda overlay */
+  background: rgba(123, 29, 58, 0.35); /* Very soft guinda tint, lets video show through */
   z-index: 2;
 }
 
@@ -895,32 +895,92 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ─── FLOAT MENÚ SELECTOR DE MASCOTAS (ESTILO ETIQUETA VINTAGE DE PARGAMINO) ─── */
-.mascot-selector {
+/* ─── HAMBURGER WRAPPER + SELECTOR DE MASCOTAS ────────── */
+.mascot-selector-wrapper {
   position: fixed;
-  bottom: 7.2rem;
+  bottom: 7rem;
   left: 1.5rem;
   z-index: 9998;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: #FAF6EE; /* Parchment cream paper tag */
-  border: 1.5px dashed #D3C2B0; /* Scrapbook stitching style */
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: -4px 8px 25px rgba(90, 18, 40, 0.12);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 1s ease, visibility 1s ease, transform 0.3s ease;
-  transform: translateY(10px);
+  transition: opacity 1s ease, visibility 1s ease;
 }
 
-.mascot-selector.visible {
+.mascot-selector-wrapper.visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
+}
+
+/* Hamburger Button */
+.mascot-hamburger {
+  width: 36px;
+  height: 36px;
+  background: #FAF6EE;
+  border: 1.5px solid #D3C2B0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px;
+  box-shadow: 0 3px 10px rgba(90, 18, 40, 0.12);
+  transition: all 0.3s ease;
+}
+
+.mascot-hamburger:hover {
+  background: #F4EDE2;
+  box-shadow: 0 5px 15px rgba(90, 18, 40, 0.18);
+}
+
+.mascot-hamburger .bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--guinda);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger X animation */
+.mascot-hamburger.open .bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.mascot-hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.mascot-hamburger.open .bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Collapsible Selector Panel */
+.mascot-selector {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #FAF6EE;
+  border: 1.5px dashed #D3C2B0;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: -4px 8px 25px rgba(90, 18, 40, 0.12);
+  transform: translateY(8px) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mascot-selector.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .mascot-sel-btn {
@@ -939,17 +999,17 @@
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.04);
   user-select: none;
+  white-space: nowrap;
 }
 
 .mascot-sel-btn:hover {
   background: var(--guinda-light);
   border-color: var(--guinda-light);
   color: #FFFFFF;
-  transform: translateX(4px);
 }
 
 .mascot-sel-btn:active {
-  transform: scale(0.96) translateX(4px);
+  transform: scale(0.96);
 }
 
 .mascot-sel-btn.active {
@@ -959,27 +1019,19 @@
   box-shadow: 0 3px 8px rgba(123, 29, 58, 0.25);
 }
 
-/* Adaptación móvil del selector (en fila horizontal en la parte inferior) */
+/* Hamburger mobile adaptation */
 @media (max-width: 500px) {
-  .mascot-selector {
-    bottom: 5.5rem !important;
-    left: 0.8rem !important;
-    flex-direction: row !important;
-    gap: 6px !important;
-    padding: 6px !important;
-    transform: translateY(0);
+  .mascot-selector-wrapper {
+    bottom: 5.5rem;
+    left: 0.8rem;
   }
-  
+  .mascot-hamburger {
+    width: 32px;
+    height: 32px;
+  }
   .mascot-sel-btn {
-    font-size: 0.7rem !important;
-    padding: 5px 10px !important;
-  }
-  
-  .mascot-sel-btn:hover {
-    transform: translateY(-2px); /* Vertical slide on mobile hover */
-  }
-  .mascot-sel-btn:active {
-    transform: scale(0.96) translateY(-2px);
+    font-size: 0.7rem;
+    padding: 5px 10px;
   }
 }
 

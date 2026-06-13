@@ -27,12 +27,12 @@ function initBook() {
       
       // Mostrar la mascota pollito y su selector cuando se abre el libro
       const polloSticker = document.getElementById('polloSticker');
-      const mascotSelector = document.getElementById('mascotSelector');
+      const mascotWrapper = document.getElementById('mascotSelectorWrapper');
       if (polloSticker) {
         polloSticker.classList.add('visible');
       }
-      if (mascotSelector) {
-        mascotSelector.classList.add('visible');
+      if (mascotWrapper) {
+        mascotWrapper.classList.add('visible');
       }
     }, 1800);
   }

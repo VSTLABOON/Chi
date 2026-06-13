@@ -301,6 +301,25 @@ function initPizarron() {
       }
     });
 
+    // Hamburger menu toggle for mascot selector
+    const hamburgerBtn = document.getElementById('mascotHamburger');
+    const selectorPanel = document.getElementById('mascotSelector');
+    if (hamburgerBtn && selectorPanel) {
+      hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburgerBtn.classList.toggle('open');
+        selectorPanel.classList.toggle('open');
+      });
+      // Close selector on outside click
+      document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('mascotSelectorWrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+          hamburgerBtn.classList.remove('open');
+          selectorPanel.classList.remove('open');
+        }
+      });
+    }
+
     // Cambiar mascota activa con botones del selector
     if (mascotButtons) {
       mascotButtons.forEach((btn) => {

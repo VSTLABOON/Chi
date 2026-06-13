@@ -523,11 +523,18 @@
   <div class="pollo-bubble" id="polloBubble">¡Pío!</div>
 </div>
 
-<!-- Selector de Compañero Flotante -->
-<div class="mascot-selector" id="mascotSelector">
-  <button class="mascot-sel-btn active" data-mascot="pollo">Pollito</button>
-  <button class="mascot-sel-btn" data-mascot="perro">Salchicha</button>
-  <button class="mascot-sel-btn" data-mascot="pez">Pecesito</button>
+<!-- Selector de Compañero Flotante en Menú de Hamburguesa -->
+<div class="mascot-selector-wrapper" id="mascotSelectorWrapper">
+  <button class="mascot-hamburger" id="mascotHamburger" aria-label="Abrir selector de mascotas">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <div class="mascot-selector" id="mascotSelector">
+    <button class="mascot-sel-btn active" data-mascot="pollo">Pollito</button>
+    <button class="mascot-sel-btn" data-mascot="perro">Salchicha</button>
+    <button class="mascot-sel-btn" data-mascot="pez">Pecesito</button>
+  </div>
 </div>
 
 <!-- Scripts modularizados cargados localmente (sin CORS) -->
