@@ -1091,3 +1091,115 @@
   }
 }
 
+/* ─── CHAPTER VIII: POP VIDEO-CLUB SECTION ────────── */
+.pop-section {
+  background: linear-gradient(180deg, var(--lavanda) 0%, var(--crema) 100%);
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.pop-intro {
+  font-style: italic;
+  color: var(--guinda-light);
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pop-card {
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px solid rgba(123, 29, 58, 0.15);
+  border-radius: 16px;
+  padding: 2.2rem 1.8rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(123, 29, 58, 0.04);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+  text-align: center;
+}
+
+.pop-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--dorado);
+  box-shadow: 0 12px 40px rgba(232, 201, 138, 0.25);
+}
+
+.pop-card-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(123, 29, 58, 0.1);
+  color: var(--guinda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.4rem;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.pop-card:hover .pop-card-icon {
+  background: var(--guinda);
+  color: var(--crema);
+}
+
+.pop-card h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  color: var(--guinda);
+  margin-bottom: 0.8rem;
+}
+
+.pop-card p {
+  font-size: 0.95rem;
+  color: var(--cafe);
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.pop-card p strong {
+  color: var(--guinda);
+}
+
+body.night-mode .pop-section {
+  background: #1a0e14;
+}
+
+body.night-mode .pop-card {
+  background: rgba(30, 20, 26, 0.7);
+  border-color: rgba(232, 201, 138, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+body.night-mode .pop-card-icon {
+  background: rgba(232, 201, 138, 0.1);
+  color: var(--dorado);
+}
+
+body.night-mode .pop-card:hover .pop-card-icon {
+  background: var(--dorado);
+  color: #1a0e14;
+}
+
+body.night-mode .pop-card h3 {
+  color: var(--dorado);
+}
+
+body.night-mode .pop-card p {
+  color: #e8d5d5;
+}
+
+body.night-mode .pop-card p strong {
+  color: var(--dorado);
+}
+

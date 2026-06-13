@@ -78,6 +78,106 @@ const questions = [
     ],
     correct: 0,
     correctFeedback: "¡Totalmente! No hay obstáculo espacial capaz de detener a un pollito dedicado a su maestra preferida."
+  },
+  {
+    question: "¿Cuál es el lema legendario que usa el Rayo McQueen en 'Cars 1' para motivarse antes de cada carrera?",
+    options: [
+      "Veloz como el viento, fuerte como el roble",
+      "Vuela como un cohete, esquiva como un cometa",
+      "Veloz... yo soy veloz. Un ganador, 42 perdedores. Yo desayuno el peligro..."
+    ],
+    correct: 2,
+    correctFeedback: "¡Cuchau! '¡Veloz, yo soy veloz!' Eres tan veloz e imparable como el Rayo McQueen en la Copa Pistón."
+  },
+  {
+    question: "Si tuvieras que cantar a todo pulmón con 'Big Time Rush' en su viaje por el mundo, ¿qué éxito elegirías?",
+    options: [
+      "Worldwide, para viajar cantando por todo el globo",
+      "Boyfriend, para buscar un novio estrella del pop",
+      "Windows Down, para saltar con el volumen al máximo"
+    ],
+    correct: 0,
+    correctFeedback: "¡Worldwide! 'Yes I'll be thinking of you, worldwide...' Esa nostalgia de la época dorada de Nickelodeon es eterna."
+  },
+  {
+    question: "En 'Rápidos y Furiosos 5' (Fast Five), ¿qué arrastran Dom y Brian por las calles de Río de Janeiro en su persecución más loca?",
+    options: [
+      "Un helicóptero militar derribado",
+      "Una gigantesca bóveda de banco blindada tirada por cables de acero",
+      "Un tren de carga cargado de dinero"
+    ],
+    correct: 1,
+    correctFeedback: "¡Brillante! Esa bóveda de banco destrozando las calles de Río es el pico del cine de acción. ¡Y qué gran tema es Danza Kuduro!"
+  },
+  {
+    question: "¿Cómo se le conoce popularmente en el escenario a Travis Scott, el famoso creador del álbum Astroworld?",
+    options: [
+      "Cactus Jack / La Flame",
+      "The Starboy",
+      "Slim Shady"
+    ],
+    correct: 0,
+    correctFeedback: "¡IT'S LIT! Cactus Jack o La Flame es una leyenda del rap contemporáneo y sus beats nos dan 'goosebumps' reales."
+  },
+  {
+    question: "La artista urbana De La Rose se ha robado los corazones de la escena. ¿Qué tipo de vibras tienen sus letras?",
+    options: [
+      "Un perreo melancólico y triste, con la carita empapada de lágrimas",
+      "Felicidad desbordante bajo el sol playero",
+      "Un grito de rock pesado y rebeldía"
+    ],
+    correct: 0,
+    correctFeedback: "¡Exacto! Ese perreo nostálgico con la carita triste y un ritmo de reggaetón lento que se queda en la mente."
+  },
+  {
+    question: "¿Cuál es el nombre real del artista detrás del exitoso alter ego musical y estético 'The Weeknd'?",
+    options: [
+      "Abel Tesfaye",
+      "Austin Mahone",
+      "Khalid Robinson"
+    ],
+    correct: 0,
+    correctFeedback: "¡Correcto! Abel Tesfaye nos sumerge en sintetizadores oscuros y voces insuperables de R&B moderno."
+  },
+  {
+    question: "¿Cuál es el álbum de 2013 de 'Arctic Monkeys' que incluye himnos como 'Do I Wanna Know?' y 'I Wanna Be Yours'?",
+    options: [
+      "AM",
+      "Favorite Worst Nightmare",
+      "Humbug"
+    ],
+    correct: 0,
+    correctFeedback: "¡Sí, AM! Ese disco de rock alternativo elegante con ondas de sonido en la portada definió a toda una generación."
+  },
+  {
+    question: "En el videoclip de 'Toxic' de Britney Spears, ¿qué profesión ejerce ella mientras hace piruetas de espionaje?",
+    options: [
+      "Una maestra de ciencias premium",
+      "Una azafata de vuelo que en realidad es una agente secreta letal",
+      "Una conductora de carreras de alta velocidad"
+    ],
+    correct: 1,
+    correctFeedback: "¡It's Britney, bitch! Como azafata/espía en ese traje futurista azul, marcó un hito indiscutible en la cultura pop."
+  },
+  {
+    question: "En la trilogía original de 'El Hombre Araña' con Tobey Maguire, ¿cuál es el consejo inmortal del tío Ben a Peter Parker?",
+    options: [
+      "Con gran velocidad viene una gran Copa Pistón",
+      "Un gran poder conlleva una gran responsabilidad",
+      "Si eres bueno en algo, nunca lo hagas gratis"
+    ],
+    correct: 1,
+    correctFeedback: "¡Por siempre! 'Un gran poder conlleva una gran responsabilidad' es la frase que cambió la historia de los cómics y el cine."
+  },
+  {
+    question: "En 'Son como niños 1' (Grown Ups), ¿qué peligroso pero divertido juego de azar juegan en la cabaña usando un arco?",
+    options: [
+      "La ruleta de la flecha (lanzar la flecha arriba y ver quién tarda más en correr)",
+      "El tiro al blanco con los ojos completamente vendados",
+      "Carreras de obstáculos cruzando el bosque de noche"
+    ],
+    correct: 0,
+    correctFeedback: "¡Jajaja, sí! Lanzar la flecha directo al cielo y aguantar sin moverse... ¡la comedia clásica de Adam Sandler y sus amigos!"
   }
 ];
 
@@ -159,7 +259,7 @@ function initQuiz() {
           }, 500);
         }
       }
-    }, 2800);
+    }, 2200);
   }
 
   // Bind print download button
