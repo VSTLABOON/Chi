@@ -772,7 +772,7 @@
     if (!diasEl || !horasEl || !minutosEl || !segsEl) return;
 
     /* Configurable start date */
-    var startDate = new Date(2024, 5, 1); // June 1, 2024 (months are 0-indexed)
+    var startDate = new Date(2025, 5, 1); // June 1, 2025 (months are 0-indexed)
     var prevValues = { d: '', h: '', m: '', s: '' };
 
     function pulseIfChanged(el, newVal, key) {
