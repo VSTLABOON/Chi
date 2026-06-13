@@ -21,7 +21,7 @@ function initHeroParticles() {
 function initMusicalNotes() {
   const notasEl = document.getElementById('notasMusicales');
   if (notasEl) {
-    const notas = ['♪','♫','♩','♬','🎵','🎶'];
+    const notas = ['♪','♫','♩','♬','♭','♮'];
     const posNotas = [
       {top:'20%',left:'5%',delay:'0s'}, {top:'60%',left:'80%',delay:'1s'},
       {top:'10%',left:'75%',delay:'2s'},{top:'75%',left:'15%',delay:'0.5s'},

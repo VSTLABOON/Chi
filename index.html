@@ -521,8 +521,38 @@
   <p class="chapter-label">Bonus: El Juego</p>
   <h2>Carrera del Pollito Cretácico</h2>
   <p>Toca la pantalla para saltar los meteoritos. Sobrevive al impacto.</p>
-  <div class="dinogame-canvas-wrap">
+  <div class="dinogame-canvas-wrap" style="position: relative;">
     <canvas id="dinoCanvas"></canvas>
+
+    <!-- Game Over HTML Overlay -->
+    <div id="dinoGameOverOverlay" class="dino-game-over-overlay" style="display: none;">
+      <div class="dino-overlay-content">
+        <h3>Fin de la Carrera</h3>
+        <p class="dino-score-display">Puntos: <span id="dinoFinalScore">0</span></p>
+        <p class="dino-record-display">Récord: <span id="dinoRecordScore">0</span></p>
+        
+        <div class="dino-rewards-container">
+          <button id="reward300Btn" class="dino-reward-btn locked" disabled>
+            <i data-lucide="lock"></i> Carta Secreta (300 pts)
+          </button>
+          <button id="reward1000Btn" class="dino-reward-btn locked" disabled>
+            <i data-lucide="lock"></i> Frase de Amor (1000 pts)
+          </button>
+          <button id="reward2000Btn" class="dino-reward-btn locked" disabled>
+            <i data-lucide="lock"></i> Poema de Ojos (2000 pts)
+          </button>
+        </div>
+        
+        <button id="dinoRestartBtn" class="dino-restart-btn">
+          <i data-lucide="refresh-cw"></i> Jugar de Nuevo
+        </button>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="dinoLogroToast" class="dino-logro-toast" style="display: none;">
+      <i data-lucide="award"></i> <span id="dinoLogroText">¡Logro Desbloqueado!</span>
+    </div>
   </div>
 </section>
 
@@ -591,7 +621,7 @@
           </button>
         </div>
         <div class="polaroid-back">
-          <p class="polaroid-dedication">"Eres una mezcla irresistible de dulzura y misterio, tan hermosa que ver una sola foto tuya acelera mis latidos a toda velocidad. Aunque nuestros encuentros sean tesoros resguardados y el viento sople de lejos, sigo hipnotizado por tu magnetismo y seguro de que nuestros caminos se encontrarán en el mismo destino."</p>
+          <p class="polaroid-dedication">"Eres una mezcla irresistible de dulzura y misterio, tan hermosa que ver una sola foto tuya acelera mis latidos a toda velocidad. Aunque nuestras conversaciones sean tesoros resguardados y el viento sople de lejos, sigo hipnotizado por tu magnetismo y seguro de que nuestros caminos se encontrarán en el mismo destino."</p>
         </div>
       </div>
     </div>
@@ -617,29 +647,36 @@
 <!-- ══════════ CAPÍTULO VIII: LA MELANCOLÍA DEL SOUVENIR ══════════ -->
 <section class="pop-section">
   <p class="chapter-label">Capítulo VIII: La Melancolía del Souvenir</p>
-  <h2>Entre el Deseo y los Recuerdos Guardados</h2>
-  <p class="pop-intro">A veces, la distancia nos hace sentir como pequeños recuerdos en una repisa, esperando a ser tocados mientras contemplamos tus silencios...</p>
+  <h2>Entre el Deseo y la Espera de Vernos</h2>
+  <p class="pop-intro">A veces, la distancia nos hace sentir como recuerdos lejanos en una repisa, soñando con el momento de vernos mientras contemplamos tus silencios...</p>
 
   <div class="pop-grid">
     <!-- Card 1: Cars / Big Time Rush -->
     <div class="pop-card">
       <div class="pop-card-icon"><i data-lucide="tv"></i></div>
       <h3>Caminos en la Distancia</h3>
-      <p>Kilómetros de carreteras y autopistas cruzadas que a veces se sienten eternas, manejando sin frenos bajo el vértigo de la atracción. Te amo y te respeto con toda mi alma, pero en este viaje largo la distancia se siente más fría cuando tus silencios llenan el espacio y te siento lejos. Eres esa mujer espectacular que brilla en mi horizonte, aunque a veces me toque esperar en silencio en la guantera como un souvenir olvidado.</p>
+      <p>Kilómetros de carreteras y autopistas que aún nos separan y se sienten eternas, soñando sin frenos bajo el vértigo de la atracción. Te amo y te respeto con toda mi alma, pero en este viaje largo la distancia se siente más fría cuando tus silencios llenan el espacio y te siento lejos. Eres esa mujer espectacular que brilla en mi horizonte, aunque a veces me toque esperar en silencio como un souvenir olvidado.</p>
     </div>
 
     <!-- Card 2: See You Again / Grow Old With You -->
     <div class="pop-card">
       <div class="pop-card-icon"><i data-lucide="clapperboard"></i></div>
       <h3>Robándole Minutos al Tiempo</h3>
-      <p>Llamar tu atención y ver tu hermosa sonrisa es como ganar el premio más codiciado del mundo; posees un magnetismo y una elegancia física que me cautivan por completo. Sin embargo, duele cuando el tiempo parece sobrar para interactuar con alguien más mientras a mí me toca el silencio o ser ignorado. Aunque me sienta como un souvenir guardado en una vitrina esperando tu regreso, mi anhelo de envejecer contigo sigue intacto.</p>
+      <p>Llamar tu atención en la distancia y ver tu hermosa sonrisa en la pantalla es como ganar el premio más codiciado del mundo; posees un magnetismo y una elegancia física que me cautivan por completo. Sin embargo, duele cuando el tiempo parece sobrar para interactuar con alguien más mientras a mí me toca el silencio o ser ignorado. Aunque me sienta como un souvenir guardado en una vitrina esperando el momento de vernos por primera vez, mi anhelo de compartir mi vida contigo sigue intacto.</p>
     </div>
 
     <!-- Card 3: Signal Fire / I Wanna Be Yours / Sometimes / goosebumps -->
     <div class="pop-card">
       <div class="pop-card-icon"><i data-lucide="music-4"></i></div>
       <h3>Frecuencias en la Noche</h3>
-      <p>En el silencio de la noche, mientras suena la melodía de León Larregui sobre souvenirs y olvidos, es imposible no pensar en lo hermosa y sexy que eres. Un escalofrío recorre la distancia al recordar la calidez de tu piel. Pero no me encanta cuando el celular se queda mudo en las noches donde desapareces; te amo con todo lo que soy y respeto tus tiempos, pero doler en tu ausencia es parte de este deseo de seguir siendo tuyo.</p>
+      <p>En el silencio de la noche, cuando el R&B melancólico llena el cuarto, es imposible no pensar en lo hermosa y sexy que eres. Un escalofrío recorre la distancia al soñar con la calidez de tu piel. Pero no me encanta cuando el celular se queda mudo en las noches donde desapareces; te amo con todo lo que soy y respeto tus tiempos, pero doler en tu ausencia es parte de este deseo de seguir siendo tuyo.</p>
+    </div>
+
+    <!-- Card 4: Elegancia en Movimiento -->
+    <div class="pop-card">
+      <div class="pop-card-icon"><i data-lucide="sparkles"></i></div>
+      <h3>Elegancia en Movimiento</h3>
+      <p>No hay nada más hipnótico en los videos y fotos que compartes que la gracia y la sensualidad de tus piernas al caminar. Es una cadencia perfecta que me roba la atención y me acelera el pulso a través de la pantalla. Incluso en la distancia, soñar con tus pasos y la elegancia de tu andar me mantiene firme en el deseo de vernos por primera vez.</p>
     </div>
   </div>
 </section>
@@ -718,6 +755,33 @@
     <p>Eres una de esas personas que hace que el mundo tenga sentido. Gracias por existir, maestra.</p>
     <p>Tu alumno que nunca dejó de aprender de ti.</p>
     <button class="secret-close" id="secretClose">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal Instructivo de Primera Visita -->
+<div id="instructionModal" class="instruction-modal" style="display: none;">
+  <div class="instruction-modal-content">
+    <h2>¡Hola, Samara!</h2>
+    <p class="instruction-subtitle">Esta es tu enciclopedia interactiva. Aquí tienes todo lo que puedes descubrir en este detalle:</p>
+    <ul class="instruction-list">
+      <li><i data-lucide="book-open"></i> <strong>Capítulo I (Libro):</strong> Toca el libro en 3D para abrir sus páginas y leer los stickers.</li>
+      <li><i data-lucide="sparkles"></i> <strong>Capítulo III (Constelación):</strong> Toca las estrellas en la mejilla del rostro para revelar secretos ocultos.</li>
+      <li><i data-lucide="pencil"></i> <strong>Capítulo VI (Pizarrón):</strong> Dibuja libremente con tizas de colores y límpialo con el borrador.</li>
+      <li><i data-lucide="music"></i> <strong>Walkman:</strong> Abre la playlist (arriba a la izquierda) para escuchar canciones con declaraciones de amor y leer el karaoke.</li>
+      <li><i data-lucide="toy-brick"></i> <strong>Mascotas:</strong> Elige un compañero abajo a la izquierda y arrástralo donde quieras. Tócalo para escuchar lo que dice. Tienen una gran cantidad de frases y, aunque pueda parecer tedioso, merece la pena que le dediques tiempo para leerlas todas.</li>
+      <li><i data-lucide="gamepad-2"></i> <strong>Minijuego del Pollito:</strong> Salta los meteoritos. Al llegar a <strong>300, 1000 y 2000 puntos</strong> desbloquearás sorpresas especiales de amor.</li>
+    </ul>
+    <button id="closeInstructionModalBtn" class="instruction-close-btn">Comenzar Aventura</button>
+  </div>
+</div>
+
+<!-- Modal para Visualizar Recompensas de Frase o Poema -->
+<div id="dinoRewardModal" class="dino-reward-modal" style="display: none;">
+  <div class="dino-reward-modal-content">
+    <button id="closeRewardModalBtn" class="dino-reward-modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <div id="dinoRewardModalBody">
+      <!-- Inyectado dinámicamente -->
+    </div>
   </div>
 </div>
 

@@ -72,6 +72,10 @@ function initDinoGame() {
   var visible = false;
   var gameSpeed = BASE_SPEED;
 
+  var toast300Triggered = false;
+  var toast1000Triggered = false;
+  var toast2000Triggered = false;
+
   /* ---- helpers ---- */
   function rand(a, b) { return Math.random() * (b - a) + a; }
   function randInt(a, b) { return Math.floor(rand(a, b + 1)); }
@@ -149,6 +153,9 @@ function initDinoGame() {
     spawnTimer = 0;
     spawnInterval = 180;
     gameSpeed = BASE_SPEED;
+    toast300Triggered = false;
+    toast1000Triggered = false;
+    toast2000Triggered = false;
     initClouds();
     initGroundRocks();
   }
@@ -158,6 +165,8 @@ function initDinoGame() {
 
   function jump() {
     if (gameOver) {
+      var overlay = document.getElementById('dinoGameOverOverlay');
+      if (overlay) overlay.style.display = 'none';
       resetGame();
       return;
     }
@@ -444,40 +453,9 @@ function initDinoGame() {
 
   /* ---- draw game-over overlay ---- */
   function drawGameOver() {
-    /* dim overlay */
-    ctx.fillStyle = 'rgba(20,15,10,0.65)';
+    /* dim overlay slightly so the HTML overlay has a dark background underneath */
+    ctx.fillStyle = 'rgba(20,15,10,0.4)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.save();
-    ctx.textAlign = 'center';
-    ctx.shadowColor = 'rgba(0,0,0,0.7)';
-    ctx.shadowBlur = 8;
-
-    /* "Fin" */
-    ctx.fillStyle = COL_TEXT;
-    ctx.font = 'bold ' + Math.round(36 * scale) + 'px "Playfair Display", serif';
-    ctx.fillText('Fin', canvas.width / 2, canvas.height * 0.35);
-
-    /* score */
-    ctx.font = Math.round(16 * scale) + 'px "Lato", sans-serif';
-    ctx.fillText('Puntos: ' + score, canvas.width / 2, canvas.height * 0.50);
-
-    /* restart button area */
-    var btnW = 160 * scale;
-    var btnH = 38 * scale;
-    var btnX = canvas.width / 2 - btnW / 2;
-    var btnY = canvas.height * 0.58;
-
-    ctx.strokeStyle = COL_TEXT;
-    ctx.lineWidth = 1.5;
-    drawRoundRect(btnX, btnY, btnW, btnH, 6 * scale);
-    ctx.stroke();
-
-    ctx.fillStyle = COL_TEXT;
-    ctx.font = Math.round(15 * scale) + 'px "Lato", sans-serif';
-    ctx.fillText('Reiniciar', canvas.width / 2, btnY + btnH * 0.65);
-
-    ctx.restore();
   }
 
   /* ---- update ---- */
@@ -554,13 +532,27 @@ function initDinoGame() {
       var dy = cyCenter - my;
       var dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < cRadius + m.r * 0.55) {
-        gameOver = true;
+        handleGameOver();
         return;
       }
     }
 
     /* score */
     score++;
+
+    // check milestones toasts
+    if (score >= 300 && !toast300Triggered) {
+      toast300Triggered = true;
+      showLogroToast("¡Logro Desbloqueado! Carta Secreta disponible");
+    }
+    if (score >= 1000 && !toast1000Triggered) {
+      toast1000Triggered = true;
+      showLogroToast("¡Logro Desbloqueado! Frase de Amor disponible");
+    }
+    if (score >= 2000 && !toast2000Triggered) {
+      toast2000Triggered = true;
+      showLogroToast("¡Logro Desbloqueado! Poema de Ojos disponible");
+    }
 
     /* special message trigger */
     if (score === 100 && !specialShown) {
@@ -652,7 +644,193 @@ function initDinoGame() {
     startLoop();
   }
 
+  /* ---- HTML Modal, Overlay, and Toast Helpers ---- */
+  var toastTimeout = null;
+  function showLogroToast(text) {
+    var toast = document.getElementById('dinoLogroToast');
+    var toastText = document.getElementById('dinoLogroText');
+    if (!toast || !toastText) return;
+
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+    }
+
+    toastText.textContent = text;
+    toast.style.display = 'flex';
+    /* Force reflow */
+    toast.offsetHeight;
+    toast.classList.add('show');
+
+    toastTimeout = setTimeout(function() {
+      toast.classList.remove('show');
+      toastTimeout = setTimeout(function() {
+        toast.style.display = 'none';
+      }, 400);
+    }, 3000);
+  }
+
+  function updateRewardButtons(recordScore) {
+    var btn300 = document.getElementById('reward300Btn');
+    var btn1000 = document.getElementById('reward1000Btn');
+    var btn2000 = document.getElementById('reward2000Btn');
+
+    if (btn300) {
+      if (recordScore >= 300) {
+        btn300.classList.remove('locked');
+        btn300.classList.add('unlocked');
+        btn300.removeAttribute('disabled');
+        btn300.innerHTML = '<i data-lucide="mail"></i> Carta Secreta (300 pts)';
+      } else {
+        btn300.classList.add('locked');
+        btn300.classList.remove('unlocked');
+        btn300.setAttribute('disabled', 'true');
+        btn300.innerHTML = '<i data-lucide="lock"></i> Carta Secreta (300 pts)';
+      }
+    }
+
+    if (btn1000) {
+      if (recordScore >= 1000) {
+        btn1000.classList.remove('locked');
+        btn1000.classList.add('unlocked');
+        btn1000.removeAttribute('disabled');
+        btn1000.innerHTML = '<i data-lucide="heart"></i> Frase de Amor (1000 pts)';
+      } else {
+        btn1000.classList.add('locked');
+        btn1000.classList.remove('unlocked');
+        btn1000.setAttribute('disabled', 'true');
+        btn1000.innerHTML = '<i data-lucide="lock"></i> Frase de Amor (1000 pts)';
+      }
+    }
+
+    if (btn2000) {
+      if (recordScore >= 2000) {
+        btn2000.classList.remove('locked');
+        btn2000.classList.add('unlocked');
+        btn2000.removeAttribute('disabled');
+        btn2000.innerHTML = '<i data-lucide="eye"></i> Poema de Ojos (2000 pts)';
+      } else {
+        btn2000.classList.add('locked');
+        btn2000.classList.remove('unlocked');
+        btn2000.setAttribute('disabled', 'true');
+        btn2000.innerHTML = '<i data-lucide="lock"></i> Poema de Ojos (2000 pts)';
+      }
+    }
+
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  }
+
+  function handleGameOver() {
+    gameOver = true;
+    
+    // Save high score
+    var record = parseInt(localStorage.getItem('dinoHighScore') || 0, 10);
+    if (score > record) {
+      record = score;
+      localStorage.setItem('dinoHighScore', record);
+    }
+
+    // Populate score display
+    var finalScoreSpan = document.getElementById('dinoFinalScore');
+    var recordScoreSpan = document.getElementById('dinoRecordScore');
+    if (finalScoreSpan) finalScoreSpan.textContent = score;
+    if (recordScoreSpan) recordScoreSpan.textContent = record;
+
+    // Handle reward button states based on high score (record)
+    updateRewardButtons(record);
+
+    // Show overlay
+    var overlay = document.getElementById('dinoGameOverOverlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function showSecretLetter() {
+    var letterText = "Querida Samara,\n\nEscribo estas líneas con el alma abierta y el corazón en la mano. Te amo con cada fibra de mi ser, de una forma tan inmensa e incondicional que incluso supera mi devoción por historias tan grandes como One Piece; eres mi aventura favorita, mi tesoro más buscado. Me maravilla tu esencia, tu fuerza y todo lo hermoso que eres.\n\nSin embargo, en este camino de distancia, también hay verdades que duelen en el silencio. Es cierto que la inconsistencia, la incongruencia y aquellas ausencias que siento que no merezco golpean muy fuerte en mi interior. A veces resulta desmoralizante sentir que la persona de la que estoy profundamente enamorado no puede sostener su amor en el día a día. No hablo de la belleza de las palabras, sino de la firmeza de las acciones y la consistencia en el tiempo.\n\nEsto golpea muy duro porque no viene de cualquiera. Viene de ti, la mujer que amo con todo mi ser y que, según tus propias y hermosas palabras, me considera alguien sumamente importante y el hombre al que amas. Quisiera que esa importancia y ese amor se reflejen no solo en lo que decimos cuando estamos cerca en la distancia digital, sino en la solidez de cada día. Sigo aquí, queriéndote con la misma intensidad, soñando con que nuestras acciones hablen con la misma fuerza que nuestros sentimientos.\n\nCon todo mi amor,\nSiempre tuyo.";
+    
+    showRewardText("Carta Secreta", letterText, "mail");
+  }
+
+  function showRewardText(title, text, iconName) {
+    var rewardModal = document.getElementById('dinoRewardModal');
+    var rewardModalBody = document.getElementById('dinoRewardModalBody');
+    if (!rewardModal || !rewardModalBody) return;
+    
+    rewardModalBody.innerHTML = `
+      <div class="dino-reward-content-body">
+        <div class="dino-reward-icon"><i data-lucide="${iconName}"></i></div>
+        <h4>${title}</h4>
+        <p class="dino-reward-text-content">${text}</p>
+      </div>
+    `;
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    rewardModal.style.display = 'flex';
+    setTimeout(function() {
+      rewardModal.classList.add('open');
+    }, 50);
+  }
+
+  // Hook up event listeners for HTML overlay buttons
+  var r300 = document.getElementById('reward300Btn');
+  var r1000 = document.getElementById('reward1000Btn');
+  var r2000 = document.getElementById('reward2000Btn');
+  var rewardModal = document.getElementById('dinoRewardModal');
+  var closeRewardBtn = document.getElementById('closeRewardModalBtn');
+  var htmlOverlay = document.getElementById('dinoGameOverOverlay');
+  var restartBtn = document.getElementById('dinoRestartBtn');
+
+  if (r300 && !r300.dataset.listenerAdded) {
+    r300.dataset.listenerAdded = "true";
+    r300.addEventListener('click', function() {
+      if (r300.classList.contains('locked')) return;
+      showSecretLetter();
+    });
+  }
+  if (r1000 && !r1000.dataset.listenerAdded) {
+    r1000.dataset.listenerAdded = "true";
+    r1000.addEventListener('click', function() {
+      if (r1000.classList.contains('locked')) return;
+      showRewardText("Frase de Amor", 
+                     "\"Eres el libro que nunca quiero dejar de leer, el café perfecto que despierta mis sentidos, el cielo estrellado que guía mis noches, la mejor película de mi vida, la frecuencia exacta que hace latir mi corazón y la gracia que guía cada uno de mis pasos.\"",
+                     "heart");
+    });
+  }
+  if (r2000 && !r2000.dataset.listenerAdded) {
+    r2000.dataset.listenerAdded = "true";
+    r2000.addEventListener('click', function() {
+      if (r2000.classList.contains('locked')) return;
+      showRewardText("Poema de Ojos", 
+                     "Tus Ojos, Samara\n\nEn la profundidad de tu mirada se dibuja el universo,\nun destello de luz donde me pierdo sin temor.\nTus ojos son el faro que inspira cada verso,\nel refugio perfecto donde anida mi amor.\n\nTienen el misterio del cielo al atardecer,\nla chispa del café por la mañana al despertar.\nMirarte a los ojos es volver a nacer,\nes el único lugar al que siempre quiero regresar.",
+                     "eye");
+    });
+  }
+
+  if (closeRewardBtn && rewardModal && !closeRewardBtn.dataset.listenerAdded) {
+    closeRewardBtn.dataset.listenerAdded = "true";
+    closeRewardBtn.addEventListener('click', function() {
+      rewardModal.classList.remove('open');
+      setTimeout(function() {
+        rewardModal.style.display = 'none';
+      }, 400);
+    });
+  }
+
+  if (restartBtn && !restartBtn.dataset.listenerAdded) {
+    restartBtn.dataset.listenerAdded = "true";
+    restartBtn.addEventListener('click', function() {
+      if (htmlOverlay) htmlOverlay.style.display = 'none';
+      resetGame();
+    });
+  }
+
   /* ---- init ---- */
+  var initialRecord = parseInt(localStorage.getItem('dinoHighScore') || 0, 10);
+  updateRewardButtons(initialRecord);
+
   resetGame();
   /* initial render so the canvas is not blank */
   GROUND_Y = canvas.height - 24 * scale;

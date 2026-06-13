@@ -1236,3 +1236,447 @@ body.night-mode .pop-card p strong {
   color: var(--dorado);
 }
 
+/* ============================================================
+   PERSONALIZATION ADDITIONS: INSTRUCTION MODAL, REWARDS & TOAST
+   ============================================================ */
+
+/* 1. First-time instruction modal */
+.instruction-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100005; /* Must be on top of everything */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.instruction-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.instruction-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(44, 30, 36, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.instruction-modal-content {
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(135deg, var(--crema) 0%, #FFF5EF 100%);
+  border: 3px double var(--dorado);
+  border-radius: 20px;
+  width: min(540px, 92vw);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 50px rgba(90, 18, 40, 0.25), inset 0 0 30px rgba(232, 201, 138, 0.1);
+  text-align: center;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.instruction-modal.open .instruction-modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.instruction-modal-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--guinda);
+  margin-bottom: 0.8rem;
+}
+
+.instruction-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: var(--cafe);
+  margin-bottom: 1.8rem;
+  line-height: 1.5;
+}
+
+.instruction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.instruction-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #4A3E43;
+}
+
+.instruction-list li svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--guinda);
+  margin-top: 2px;
+}
+
+.instruction-list li strong {
+  color: var(--guinda);
+  font-weight: 700;
+}
+
+.instruction-close-btn {
+  background: linear-gradient(135deg, var(--guinda-light) 0%, var(--guinda) 100%);
+  border: 1px solid var(--guinda);
+  border-radius: 30px;
+  color: #fff;
+  padding: 0.8rem 2.2rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(123, 29, 58, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+  outline: none;
+}
+
+.instruction-close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(123, 29, 58, 0.4);
+}
+
+.instruction-close-btn:active {
+  transform: translateY(0);
+}
+
+/* Night mode styling for instruction modal */
+body.night-mode .instruction-modal-content {
+  background: linear-gradient(135deg, #2A171D 0%, #1E0F13 100%);
+  border-color: var(--dorado);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 35px rgba(232, 201, 138, 0.05);
+}
+
+body.night-mode .instruction-modal-content h2 {
+  color: var(--dorado);
+}
+
+body.night-mode .instruction-subtitle {
+  color: #D3C2C7;
+}
+
+body.night-mode .instruction-list li {
+  color: #E8D5DA;
+}
+
+body.night-mode .instruction-list li svg {
+  color: var(--dorado);
+}
+
+body.night-mode .instruction-list li strong {
+  color: var(--dorado);
+}
+
+/* 2. Dino Game Over HTML Overlay */
+.dino-game-over-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  background: rgba(30, 20, 25, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px; /* matches canvas container */
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.dino-overlay-content {
+  width: 90%;
+  max-width: 440px;
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--crema);
+}
+
+.dino-overlay-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--dorado);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.dino-score-display {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin: 0.2rem 0;
+}
+
+.dino-record-display {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1.2rem;
+}
+
+.dino-rewards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.dino-reward-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.65rem 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.dino-reward-btn.locked {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+}
+
+.dino-reward-btn.unlocked {
+  background: linear-gradient(135deg, rgba(232, 201, 138, 0.15) 0%, rgba(232, 201, 138, 0.05) 100%);
+  border-color: var(--dorado);
+  color: var(--dorado);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(232, 201, 138, 0.15);
+}
+
+.dino-reward-btn.unlocked:hover {
+  background: linear-gradient(135deg, rgba(232, 201, 138, 0.25) 0%, rgba(232, 201, 138, 0.1) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 201, 138, 0.3);
+}
+
+.dino-reward-btn.unlocked:active {
+  transform: translateY(0);
+}
+
+.dino-reward-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dino-restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--guinda-light) 0%, var(--guinda) 100%);
+  border: 1px solid var(--guinda);
+  border-radius: 20px;
+  color: #fff;
+  padding: 0.6rem 1.6rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(123, 29, 58, 0.3);
+}
+
+.dino-restart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(123, 29, 58, 0.45);
+}
+
+.dino-restart-btn:active {
+  transform: translateY(0);
+}
+
+.dino-restart-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 3. Dino Notification Toast */
+.dino-logro-toast {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  z-index: 101;
+  background: rgba(123, 29, 58, 0.95);
+  border: 1.5px solid var(--dorado);
+  border-radius: 30px;
+  padding: 8px 20px;
+  color: var(--dorado);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 10px rgba(232, 201, 138, 0.3);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+  pointer-events: none;
+}
+
+.dino-logro-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.dino-logro-toast svg {
+  width: 16px;
+  height: 16px;
+  animation: pulse 1.5s infinite;
+}
+
+/* 4. Reward Viewer Modal */
+.dino-reward-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100006;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.dino-reward-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dino-reward-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dino-reward-modal-content {
+  position: relative;
+  z-index: 10;
+  width: min(480px, 90vw);
+  background: linear-gradient(135deg, var(--crema) 0%, #FFF8F5 100%);
+  border: 2px solid var(--dorado);
+  border-radius: 16px;
+  padding: 3rem 2.2rem 2.5rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.dino-reward-modal.open .dino-reward-modal-content {
+  transform: scale(1);
+}
+
+.dino-reward-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--guinda);
+  border: 1.5px solid var(--dorado);
+  color: var(--crema);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.dino-reward-modal-close:hover {
+  transform: scale(1.1);
+  background-color: var(--guinda-light);
+}
+
+.dino-reward-modal-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.dino-reward-content-body {
+  text-align: center;
+}
+
+.dino-reward-icon {
+  font-size: 2.2rem;
+  color: var(--guinda);
+  margin-bottom: 1rem;
+}
+
+.dino-reward-content-body h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--guinda);
+  margin-bottom: 1.2rem;
+  border-bottom: 1px dashed rgba(123, 29, 58, 0.15);
+  padding-bottom: 0.6rem;
+}
+
+.dino-reward-text-content {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4A353B;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+body.night-mode .dino-reward-modal-content {
+  background: linear-gradient(135deg, #2A171D 0%, #1E0F13 100%);
+}
+
+body.night-mode .dino-reward-content-body h4 {
+  color: var(--dorado);
+  border-color: rgba(232, 201, 138, 0.15);
+}
+
+body.night-mode .dino-reward-text-content {
+  color: #E8D5DA;
+}
+
+body.night-mode .dino-reward-icon {
+  color: var(--dorado);
+}
+
+/* Common animation helper */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+

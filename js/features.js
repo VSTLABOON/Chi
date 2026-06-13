@@ -939,6 +939,30 @@
   }
 
 
+  function initInstructionModal() {
+    var modal = document.getElementById('instructionModal');
+    var closeBtn = document.getElementById('closeInstructionModalBtn');
+    if (!modal || !closeBtn) return;
+
+    var hasVisited = localStorage.getItem('hasVisitedBefore');
+    if (!hasVisited) {
+      modal.style.display = 'flex';
+      /* Small delay to allow the fade transition to trigger */
+      setTimeout(function () {
+        modal.classList.add('open');
+      }, 50);
+    }
+
+    closeBtn.addEventListener('click', function () {
+      modal.classList.remove('open');
+      setTimeout(function () {
+        modal.style.display = 'none';
+      }, 500);
+      localStorage.setItem('hasVisitedBefore', 'true');
+    });
+  }
+
+
   /* ═══════════════════════════════════════════════════════════
      PUBLIC: initFeatures()
      ═══════════════════════════════════════════════════════════ */
@@ -952,6 +976,7 @@
     initDaysCounter();
     initCustomCursor();
     initKaraokePanel();
+    initInstructionModal();
   }
 
   /* Expose globally */
