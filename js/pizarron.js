@@ -144,60 +144,45 @@ function initPizarron() {
   const mascotButtons = document.querySelectorAll('.mascot-sel-btn');
 
   let activeMascot = 'pollo'; // 'pollo', 'perro', 'mosa'
-  
   const polloPhrases = [
-    "¡Coc-coooc! Las milanesas son parientes del T-Rex. ¡Respeta a tus mayores!",
-    "¡Hola Samara! ¿Hoy habrá examen sorpresa?",
-    "¡Pío! Michael Jackson inventó el moonwalk, pero yo inventé el egg-walk.",
-    "¡Cruzo la calle para ir a tu clase!",
-    "Maestra, ¿me pone 10 en conducta? Soy un buen pollito ancestral.",
-    "¡El Cretácico rules! ✦",
-    "¡Pío, pío! ¿Sabías que el T-Rex no podía aplaudir en tus clases? Yo sí puedo con mi gran corazón.",
-    "Maestra Samara, el meteorito se llevó a los dinosaurios, pero tu paciencia sobrevivió.",
-    "¡Coc-cooc! ¿Qué hace un pollito en el Cretácico? Buscar la mejor clase de Monterrey.",
-    "¡Pío! Si soy el ancestro de los dinosaurios, ¿me perdonas la tarea de hoy?",
-    "¡Estudiar Formación Cívica me hace sentir un pollo muy civilizado y prehistórico!",
-    "¡Cuidado con el meteorito! Ah, no, es solo otra ráfaga de tu viento regio. ¡Pío!",
-    "¡Pío! Del Jurásico al salón de clases, tú eres la maestra más genial.",
-    "¡Pío! Un tiranosaurio se comió mi tarea... pero me dio flojera correr.",
-    "¡Coc-cooc! ¿Sabías que mis plumas son para verte mejor, Samara?",
-    "¡Pío! Si repruebo, ¿cuenta como extinción masiva?",
-    "¡Coc-cooc! En el Cretácico no había aire acondicionado, ¡como en Monterrey cuando falla la luz!",
-    "¡Pío! Un aplauso para la maestra que educa con amor y no con rugidos.",
-    "Dicen que el Velociraptor era rápido, pero no tanto como tú borrando el pizarrón.",
-    "¡Pío! ¿Sabías que los pollos soñamos con volar? Y tus clases nos dan alas.",
-    "¡A bailar Thriller bajo la lluvia de meteoritos! ¡Coooc!",
-    "Maestra Samara, mi cariño por ti es más duradero que un insecto en ámbar.",
-    "¡Pío! Si un dinosaurio te molesta, ¡le daré un picotazo prehistórico!",
-    "¡Coc-cooc! ¿Me das un punto extra por evolución?",
-    "Si los dinosaurios hubieran tenido una maestra como tú, habrían hecho la tarea y no se habrían extinguido."
+    "¡Pío! Maestra, aunque caigan meteoritos y parezca que el cielo se está cayendo, estar en tu clase es mi lugar seguro.",
+    "¡Coc-cooc! ¿Será que el cielo del Cretácico se cae hoy? No importa, si estás tú, seguro todo saldrá bien.",
+    "¡Pío! Soy un pollito pequeño con lentes invisibles y una bellota en la cabeza, pero mi cariño por ti es gigante.",
+    "¡Coc-cooc! Si el cielo se cae hoy, le diremos a todos que es por el impacto de tu belleza.",
+    "¡Pío! Sobrevivir al meteorito es fácil comparado con lo rápido que late mi corazón cuando me sonríes.",
+    "¡Pío! A veces siento que el cielo se viene abajo con tantas tareas, pero tu sola presencia nos salva a todos.",
+    "¡Coc-cooc! ¿Una bellota me cayó en la cabeza? No, es solo el recuerdo de lo hermosa que eres.",
+    "¡Pío! Soy el pariente lejano del T-Rex, pero en versión Chicken Little. ¡Listo para defender tu clase!",
+    "Maestra Samara, el mundo prehistórico puede colapsar, pero este pollito siempre estará de tu lado.",
+    "¡Pío! Si el cielo se cae, ¡que nos agarre bailando Thriller!",
+    "¡Coc-cooc! Mis plumas tiemblan si el cielo amenaza con caer, pero me calmo al ver tus ojos hermosos."
   ];
 
   const perroPhrases = [
-    "Guau. Soy largo, negro y muy educado. ¿Me das un premio por hacer la tarea?",
-    "Maestra Samara, mi cariño por ti es mas largo que mi propio cuerpo.",
-    "Guau. Un perro salchicha en el Cretacico... espero no encontrarme un dinosaurio con hambre.",
-    "Soy un salchicha espacial. Vengo a vigilar que nadie copie en el examen.",
-    "Guau. Si me estiro un poco mas, puedo borrar la parte alta del pizarron por ti.",
-    "Dicen que los perros salchicha somos tercos, pero yo solo soy terco en quererte.",
-    "Guau. ¿Hoy habra clase de educacion fisica? Estoy listo para correr con mis patitas cortas.",
-    "Maestra, ¿me das permiso de salir a perseguir velociraptores?",
-    "Guau. Del Jurasico a Monterrey, sigo siendo tu perrito favorito.",
-    "Tengo el cuerpo largo y el corazon grande, especialmente para tus clases.",
-    "Guau. Si un dinosaurio te da lata, le ladro hasta que se extinga de nuevo."
+    "¡Te amo, mi dueña hermosa! Sé cuánto te desvelas preparando tus clases, y tu disciplina me llena de orgullo.",
+    "¡Te amo! Mira cómo muevo mis caderas de lado a lado cuando te veo llegar. ¡Nadie menea el waddle como yo!",
+    "¡Te amo! Del Cretácico a tu lado, soy la salchicha que vigila tus desveladas por estudiar lo que tanto amas.",
+    "¡Te amo, Samara! Tu compromiso con tu carrera es gigante; eres la maestra y la dueña más increíble.",
+    "¡Te amo! Adoro verte concentrada estudiando; tu esfuerzo y pasión te hacen ver aún más hermosa.",
+    "¡Te amo! Aunque pasemos mil eras separados por la distancia, mis patitas cortas siempre correrán a tus brazos.",
+    "¡Te amo! Mira mis caderas moverse con ritmo chistoso y feliz, ¡solo para sacarte una sonrisa en tus días pesados!",
+    "¡Te amo! Tu disciplina inspira a todo el Cretácico, pero a mí me basta con ver tu carita al final del día.",
+    "¡Te amo! Eres mi humana favorita y la más hermosa del universo. Gracias por cuidar de mí con tanto amor.",
+    "¡Te amo! Mi cuerpo es largo para poder abrazarte más, y mi colita no para de wiguear de felicidad por ti."
   ];
 
   const pezPhrases = [
-    "Glup. El oceano es inmenso, pero no tanto como tu paciencia en el aula.",
-    "Glup. ¿Sabias que los peces flotamos mejor cuando escuchamos tus clases?",
-    "Maestra Samara, nado contra la corriente solo para escuchar tus explicaciones.",
-    "Glup. Si el salon se inunda de tareas, yo te enseño a respirar bajo el agua.",
-    "Un pececito con un corazon gigante por su maestra favorita.",
-    "Glup. ¿Puedo responder las preguntas haciendo burbujas?",
-    "Esquive redes y anzuelos para traerte este mensaje de cariño.",
-    "Glup. Mi aprecio por tus clases tiene profundidad marina.",
-    "Nadar en el coral es divertido, pero estar en tu salon en Monterrey es mucho mejor.",
-    "Glup. Si un dinosaurio terrestre te molesta, le salpicare agua con mi colita."
+    "Glup. El océano Cretácico es inmenso y profundo, pero no tanto como tus nalgas. ¡Esas sí que son colosales y hermosas!",
+    "Glup. Nado en los mares del sur, pero me pierdo por completo en el movimiento de tus espectaculares curvas.",
+    "Glup. Con esas curvas tan grandes y hermosas, ¡cualquier mosasaurus se quedaría sin respiración!",
+    "Glup. Tu paciencia en clase será corta, maestra, ¡pero tus nalgas sí que son un monumento gigante!",
+    "Glup. Dicen que el mar es agitado, pero nada se compara con el oleaje y la belleza de tus caderas.",
+    "Glup. Nado contra la corriente solo para admirar la silueta de mi dueña favorita.",
+    "Glup. El mar tiene profundidades misteriosas, pero tus curvas son el verdadero tesoro de Monterrey.",
+    "Glup. ¿Mosasaurus? No, la verdadera reina con las curvas más grandes y deseadas del Cretácico eres tú.",
+    "Glup. Nado feliz sabiendo que tengo a la dueña con las curvas más perfectas y hermosas del mundo.",
+    "Glup. Si el agua está tibia es por el calor que desprendes al caminar con ese vaivén tan sexy.",
+    "Glup. Si un dinosaurio terrestre te molesta, le salpicaré agua con mi colita."
   ];
 
   let bubbleTimeout = null;
