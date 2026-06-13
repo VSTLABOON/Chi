@@ -152,7 +152,7 @@ function initPizarron() {
     "¡Pío! Sobrevivir al meteorito es fácil comparado con lo rápido que late mi corazón cuando me sonríes.",
     "¡Pío! A veces siento que el cielo se viene abajo con tantas tareas, pero tu sola presencia nos salva a todos.",
     "¡Coc-cooc! ¿Una bellota me cayó en la cabeza? No, es solo el recuerdo de lo hermosa que eres.",
-    "¡Pío! Soy el pariente lejano del T-Rex, pero en versión Chicken Little. ¡Listo para defender tu clase!",
+    "¡Pío! Soy el pariente lejano del Tiranosaurio Rex, pero en versión Chicken Little. ¡Listo para defender tu clase!",
     "Maestra Samara, el mundo prehistórico puede colapsar, pero este pollito siempre estará de tu lado.",
     "¡Pío! Si el cielo se cae, ¡que nos agarre bailando Thriller!",
     "¡Coc-cooc! Mis plumas tiemblan si el cielo amenaza con caer, pero me calmo al ver tus ojos hermosos."

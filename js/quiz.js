@@ -7,7 +7,7 @@ const questions = [
       "El avestruz corredor"
     ],
     correct: 1,
-    correctFeedback: "¡Exacto! Cada pollo que cacarea lleva en sus venas la sangre de un T-Rex. ¡Eres una gran paleontóloga!"
+    correctFeedback: "¡Exacto! Cada pollo que cacarea lleva en sus venas la sangre de un Tiranosaurio Rex. ¡Eres una gran paleontóloga!"
   },
   {
     question: "Si un Mosasaurus medía 18 metros de largo, ¿cómo se compara con la paciencia de Samara en el salón?",
@@ -53,7 +53,7 @@ const questions = [
     question: "¿Cuál es considerado el dinosaurio más inteligente y con más estilo del Cretácico?",
     options: [
       "El Triceratops, por sus elegantes cuernos",
-      "El T-Rex, aunque tenga brazos cortitos",
+      "El Tiranosaurio Rex, aunque tenga brazos cortitos",
       "El Velociraptor, por su rapidez mental y brillo astuto"
     ],
     correct: 2,
