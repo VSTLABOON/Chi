@@ -67,7 +67,7 @@ function initDinoGame() {
   var specialTimer = 0;
   var SPECIAL_DURATION = 180;   // frames (~3 s)
   var spawnTimer = 0;
-  var spawnInterval = 90;
+  var spawnInterval = 180;
   var frameId = null;
   var visible = false;
   var gameSpeed = BASE_SPEED;
@@ -147,7 +147,7 @@ function initDinoGame() {
     specialShown = false;
     specialTimer = 0;
     spawnTimer = 0;
-    spawnInterval = 140;
+    spawnInterval = 180;
     gameSpeed = BASE_SPEED;
     initClouds();
     initGroundRocks();
@@ -181,6 +181,24 @@ function initDinoGame() {
 
   window.addEventListener('pointercancel', function (e) {
     isHoldingJump = false;
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' || e.code === 'ArrowUp') {
+      if (visible) {
+        e.preventDefault();
+        if (!isHoldingJump) {
+          isHoldingJump = true;
+          jump();
+        }
+      }
+    }
+  });
+
+  window.addEventListener('keyup', function (e) {
+    if (e.code === 'Space' || e.code === 'ArrowUp') {
+      isHoldingJump = false;
+    }
   });
 
   /* ---- drawing helpers ---- */
@@ -476,8 +494,8 @@ function initDinoGame() {
     if (!started || gameOver) return;
 
     /* speed ramp */
-    gameSpeed = BASE_SPEED + score * 0.003;
-    if (gameSpeed > 12) gameSpeed = 12;
+    gameSpeed = BASE_SPEED + score * 0.002;
+    if (gameSpeed > 7.5) gameSpeed = 7.5;
 
     /* chicken physics */
     var currentGravity = GRAVITY;
@@ -512,7 +530,7 @@ function initDinoGame() {
     if (spawnTimer >= spawnInterval) {
       spawnTimer = 0;
       spawnMeteor();
-      spawnInterval = Math.max(85, 160 - score * 0.15 + randInt(-20, 20));
+      spawnInterval = Math.max(140, 210 - score * 0.10 + randInt(-20, 20));
     }
 
     /* move meteorites */

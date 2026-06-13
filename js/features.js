@@ -28,7 +28,7 @@
         position: fixed;
         top: 16px;
         right: 16px;
-        z-index: 9999;
+        z-index: 990;
         width: 44px;
         height: 44px;
         border: 2px solid ${DORADO};
