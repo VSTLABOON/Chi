@@ -57,32 +57,152 @@ let bgAudio = null;
 let musicBtn = null;
 let musicPlayer = null;
 
+// Lyrics for Rock With You (Michael Jackson)
+const rockWithYouLyrics = [
+  { time: 0, text: "♪ (Intro - Michael Jackson) ♪" },
+  { time: 8, text: "Girl, close your eyes..." },
+  { time: 15, text: "Let that rhythm get into you" },
+  { time: 22, text: "Don't try to fight it" },
+  { time: 29, text: "There ain't nothing that you can do" },
+  { time: 36, text: "Relax your mind" },
+  { time: 43, text: "Lay back and groove with mine" },
+  { time: 50, text: "You gotta feel that heat" },
+  { time: 54, text: "And we can ride the boogie" },
+  { time: 58, text: "Share that beat of love" },
+  { time: 62, text: "I wanna rock with you (all night)" },
+  { time: 69, text: "Dance you into day (sunlight)" },
+  { time: 76, text: "I wanna rock with you (all night)" },
+  { time: 83, text: "Rock the night away..." },
+  { time: 104, text: "I wanna rock with you (all night)" },
+  { time: 110, text: "Rock the night away..." }
+];
+
+let lastKaraokeText = '';
+const audioCache = [];
+
 function isPlaying() {
   return playingState;
 }
 
-// Preload the next track's audio to minimize loading delay on switch
-let preloadAudio = null;
-function preloadNextTrack() {
-  const nextIndex = (currentTrackIndex + 1) % playlist.length;
-  const nextTrack = playlist[nextIndex];
-  if (!preloadAudio) {
-    preloadAudio = document.createElement('audio');
-    preloadAudio.preload = 'auto';
+// Get or create preloaded audio element for the given index
+function getAudioElement(index) {
+  if (audioCache[index]) {
+    return audioCache[index];
   }
-  preloadAudio.src = nextTrack.url;
-  preloadAudio.load();
+  
+  const audio = document.createElement('audio');
+  audio.src = playlist[index].url;
+  audio.preload = 'auto';
+  audio.volume = 0.4;
+  
+  const timeElapsedEl = document.getElementById('timeElapsed');
+  const timeDurationEl = document.getElementById('timeDuration');
+  const trackProgressFill = document.getElementById('trackProgressFill');
+
+  // Forward events of the current active audio element to the UI handlers
+  audio.addEventListener('loadstart', () => {
+    if (index === currentTrackIndex) {
+      musicPlayer.classList.add('loading');
+      const titleEl = document.getElementById('currentTrackTitle');
+      if (titleEl) {
+        titleEl.textContent = playlist[currentTrackIndex].title + " (Cargando...)";
+      }
+    }
+  });
+
+  audio.addEventListener('waiting', () => {
+    if (index === currentTrackIndex) {
+      musicPlayer.classList.add('loading');
+    }
+  });
+
+  audio.addEventListener('playing', () => {
+    if (index === currentTrackIndex) {
+      musicPlayer.classList.remove('loading');
+      musicPlayer.classList.add('playing');
+      musicBtn.classList.add('playing');
+      playingState = true;
+      
+      const titleEl = document.getElementById('currentTrackTitle');
+      if (titleEl) {
+        titleEl.textContent = playlist[currentTrackIndex].title;
+      }
+    }
+  });
+
+  audio.addEventListener('play', () => {
+    if (index === currentTrackIndex) {
+      playingState = true;
+      musicBtn.classList.add('playing');
+      musicPlayer.classList.add('playing');
+    }
+  });
+
+  audio.addEventListener('pause', () => {
+    if (index === currentTrackIndex) {
+      playingState = false;
+      musicBtn.classList.remove('playing');
+      musicPlayer.classList.remove('playing', 'loading');
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    if (index === currentTrackIndex) {
+      let nextIndex = currentTrackIndex + 1;
+      if (nextIndex >= playlist.length) nextIndex = 0;
+      loadAndPlayTrack(nextIndex);
+    }
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (index === currentTrackIndex) {
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        if (trackProgressFill) trackProgressFill.style.width = `${progress}%`;
+        if (timeElapsedEl) timeElapsedEl.textContent = formatTime(audio.currentTime);
+        if (timeDurationEl) timeDurationEl.textContent = formatTime(audio.duration);
+        
+        // Update Karaoke Panel
+        if (typeof window.updateKaraokeLine === 'function') {
+          let currentText = '';
+          if (currentTrackIndex === 0) {
+            const currentTime = audio.currentTime;
+            for (let i = rockWithYouLyrics.length - 1; i >= 0; i--) {
+              if (currentTime >= rockWithYouLyrics[i].time) {
+                currentText = rockWithYouLyrics[i].text;
+                break;
+              }
+            }
+          } else {
+            currentText = "Letra no disponible";
+          }
+          
+          if (currentText !== lastKaraokeText) {
+            lastKaraokeText = currentText;
+            window.updateKaraokeLine(currentText);
+          }
+        }
+      }
+    }
+  });
+
+  audioCache[index] = audio;
+  return audio;
 }
 
 function loadTrack(index) {
-  currentTrackIndex = index;
-  const track = playlist[index];
+  // Pause any currently playing audio in cache
   if (bgAudio) {
-    bgAudio.src = track.url;
-    bgAudio.volume = 0.4;
-    bgAudio.load();
+    bgAudio.pause();
   }
+
+  currentTrackIndex = index;
+  bgAudio = getAudioElement(index);
   
+  // Reset karaoke tracker
+  lastKaraokeText = '';
+  
+  const track = playlist[index];
   const currentTrackTitleEl = document.getElementById('currentTrackTitle');
   const currentTrackArtistEl = document.getElementById('currentTrackArtist');
   if (currentTrackTitleEl) currentTrackTitleEl.textContent = track.title;
@@ -98,7 +218,11 @@ function loadTrack(index) {
     });
   }
   
-  preloadNextTrack();
+  // Preload adjacent tracks to make switching instantaneous
+  const nextIndex = (index + 1) % playlist.length;
+  const prevIndex = (index - 1 + playlist.length) % playlist.length;
+  getAudioElement(nextIndex);
+  getAudioElement(prevIndex);
 }
 
 function playTrack() {
@@ -114,14 +238,12 @@ function pauseTrack() {
   if (musicPlayer) musicPlayer.classList.remove('playing', 'loading');
 }
 
-
 function loadAndPlayTrack(index) {
   loadTrack(index);
   playTrack();
 }
 
 function initMusic() {
-  bgAudio = document.getElementById('bgAudio');
   musicBtn = document.getElementById('musicBtn');
   musicPlayer = document.getElementById('musicPlayer');
   
@@ -129,53 +251,14 @@ function initMusic() {
   const playPauseBtn = document.getElementById('playPauseBtn');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const timeElapsedEl = document.getElementById('timeElapsed');
-  const timeDurationEl = document.getElementById('timeDuration');
   const trackProgressBar = document.getElementById('trackProgressBar');
-  const trackProgressFill = document.getElementById('trackProgressFill');
 
-  if (!bgAudio || !musicBtn || !musicPlayer) return;
+  if (!musicBtn || !musicPlayer) return;
 
-  // Set default audio volume
-  bgAudio.volume = 0.4;
-
-  // HTML5 Audio Event Listeners for precise visual state tracking
-  bgAudio.addEventListener('loadstart', () => {
-    musicPlayer.classList.add('loading');
-    const titleEl = document.getElementById('currentTrackTitle');
-    if (titleEl && playlist[currentTrackIndex]) {
-      titleEl.textContent = playlist[currentTrackIndex].title + " (Cargando...)";
-    }
-  });
-
-  bgAudio.addEventListener('waiting', () => {
-    musicPlayer.classList.add('loading');
-  });
-
-  bgAudio.addEventListener('playing', () => {
-    musicPlayer.classList.remove('loading');
-    musicPlayer.classList.add('playing');
-    musicBtn.classList.add('playing');
-    playingState = true;
-    
-    // Restore clean title
-    const titleEl = document.getElementById('currentTrackTitle');
-    if (titleEl && playlist[currentTrackIndex]) {
-      titleEl.textContent = playlist[currentTrackIndex].title;
-    }
-  });
-
-  bgAudio.addEventListener('play', () => {
-    playingState = true;
-    musicBtn.classList.add('playing');
-    musicPlayer.classList.add('playing');
-  });
-
-  bgAudio.addEventListener('pause', () => {
-    playingState = false;
-    musicBtn.classList.remove('playing');
-    musicPlayer.classList.remove('playing', 'loading');
-  });
+  // Initialize and preload the first track and its neighbors
+  bgAudio = getAudioElement(0);
+  getAudioElement(1);
+  getAudioElement(playlist.length - 1);
 
   // Populate Playlist in DOM
   playlist.forEach((track, index) => {
@@ -231,38 +314,22 @@ function initMusic() {
     });
   }
 
-  // Auto-play next track when finished
-  bgAudio.addEventListener('ended', () => {
-    let nextIndex = currentTrackIndex + 1;
-    if (nextIndex >= playlist.length) nextIndex = 0;
-    loadAndPlayTrack(nextIndex);
-  });
-
-  // Track progress updates
-  bgAudio.addEventListener('timeupdate', () => {
-    if (bgAudio.duration) {
-      const progress = (bgAudio.currentTime / bgAudio.duration) * 100;
-      if (trackProgressFill) trackProgressFill.style.width = `${progress}%`;
-      if (timeElapsedEl) timeElapsedEl.textContent = formatTime(bgAudio.currentTime);
-      if (timeDurationEl) timeDurationEl.textContent = formatTime(bgAudio.duration);
-    }
-  });
-
-  function formatTime(secs) {
-    const m = Math.floor(secs / 60);
-    const s = Math.floor(secs % 60);
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-  }
-
   // Progress bar scrubbing
   if (trackProgressBar) {
     trackProgressBar.addEventListener('click', (e) => {
       e.stopPropagation();
       const rect = trackProgressBar.getBoundingClientRect();
       const pos = (e.clientX - rect.left) / rect.width;
-      if (bgAudio.duration) {
+      if (bgAudio && bgAudio.duration) {
         bgAudio.currentTime = pos * bgAudio.duration;
       }
     });
   }
 }
+
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = Math.floor(secs % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+

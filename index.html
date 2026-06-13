@@ -103,6 +103,11 @@
       <ul class="playlist-tracks" id="playlistTracks">
         <!-- Generado dinámicamente en JS -->
       </ul>
+
+      <!-- Karaoke Panel -->
+      <div class="karaoke-panel" id="karaokePanel">
+        <span class="karaoke-line" id="karaokeLine">Reproduciendo...</span>
+      </div>
       
     </div>
   </div>
@@ -114,19 +119,25 @@
   <div class="progress-bar" id="progressBar"></div>
 </div>
 
+<!-- ══════════ DAY/NIGHT TOGGLE ══════════ -->
+<button class="day-night-toggle" id="dayNightToggle" aria-label="Cambiar modo dia/noche" title="Modo dia/noche">
+  <span class="toggle-sun"></span>
+  <span class="toggle-moon"></span>
+</button>
+
 <!-- ══════════ HERO ══════════ -->
 <section class="hero">
-  <div class="lunares" id="lunaresHero"></div>
+  <div class="lunares" id="lunaresHero" data-parallax-speed="0.2"></div>
 
-  <p class="hero-eyebrow">Una carta del fin del Cretácico</p>
-  <h1 class="hero-title">Para <em>Samara</em>,<br>maestra de todos los tiempos</h1>
-  <p class="hero-subtitle">
+  <p class="hero-eyebrow" data-parallax-speed="0.4">Una carta del fin del Cretácico</p>
+  <h1 class="hero-title" data-parallax-speed="0.6">Para <em>Samara</em>,<br>maestra de todos los tiempos</h1>
+  <p class="hero-subtitle" data-parallax-speed="0.5">
     Escrita entre páginas de libros extintos,<br>
     al ritmo de un moonwalk y el cacareo<br>
     de un pollo que sobrevivió a los dinosaurios.
   </p>
 
-  <div class="hero-scroll">
+  <div class="hero-scroll" data-parallax-speed="0.8">
     <div class="scroll-line"></div>
     <span>leer</span>
   </div>
@@ -431,11 +442,91 @@
     <p>
       Desde Puebla, con todo.
     </p>
-    <p class="firma">Con amor, Meme ✦ 2026</p>
+    <div class="firma-svg-wrap" id="firmaAnimada">
+      <svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+        <path class="firma-path" d="M20,55 C30,25 50,20 65,40 C75,55 85,60 95,45 C105,30 115,25 130,35 C145,45 150,55 160,50 C170,45 175,30 185,35 C195,40 200,55 215,50 C225,47 230,38 240,40 C255,43 265,52 280,45" />
+        <text x="20" y="75" font-family="Caveat, cursive" font-size="14" fill="var(--guinda)" opacity="0" class="firma-text-fill">Con amor, Meme  2026</text>
+      </svg>
+    </div>
+
+    <!-- Contador Dias Desde -->
+    <div class="contador-section">
+      <div class="contador-wrap" id="contadorDias">
+        <div class="contador-unit">
+          <span class="contador-num" id="diasNum">000</span>
+          <span class="contador-label">dias</span>
+        </div>
+        <span class="contador-separator">:</span>
+        <div class="contador-unit">
+          <span class="contador-num" id="horasNum">00</span>
+          <span class="contador-label">hrs</span>
+        </div>
+        <span class="contador-separator">:</span>
+        <div class="contador-unit">
+          <span class="contador-num" id="minutosNum">00</span>
+          <span class="contador-label">min</span>
+        </div>
+        <span class="contador-separator">:</span>
+        <div class="contador-unit">
+          <span class="contador-num" id="segsNum">00</span>
+          <span class="contador-label">seg</span>
+        </div>
+      </div>
+      <p class="contador-desc">...desde que esta carta comenzo a escribirse</p>
+    </div>
   </div>
 </section>
 
-<!-- ══════════ POLAROID SCRAPBOOK (ÁLBUM DE RECUERDOS) ══════════ -->
+<!-- ══════════ LÍNEA DEL TIEMPO (SCROLL HORIZONTAL) ══════════ -->
+<section class="timeline-section">
+  <p class="chapter-label">A Través del Tiempo</p>
+  <h2>Del Cretácico al Presente</h2>
+  <div class="timeline-track" id="timelineTrack">
+    <div class="timeline-card">
+      <div class="timeline-card-icon">I</div>
+      <span class="timeline-card-date">72 millones a.C.</span>
+      <h4>Era del Cretácico</h4>
+      <p>Los mosasaurus reinan el océano Tethys. El mundo es cálido, verde y lleno de criaturas que aún no saben que sus días están contados.</p>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-card-icon">II</div>
+      <span class="timeline-card-date">66 millones a.C.</span>
+      <h4>El Gran Impacto</h4>
+      <p>Un asteroide de 12 km golpea la Tierra. Todo cambia. Pero en algún rincón, un pequeño ancestro emplumado sobrevive.</p>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-card-icon">III</div>
+      <span class="timeline-card-date">10,000 a.C.</span>
+      <h4>Nace el Primer Pollo</h4>
+      <p>Del Gallus gallus salvaje al pollo doméstico. 65 millones de años de evolución para llegar a la milanesa perfecta.</p>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-card-icon">IV</div>
+      <span class="timeline-card-date">1982 d.C.</span>
+      <h4>Thriller de MJ</h4>
+      <p>Michael Jackson lanza el disco más vendido de todos los tiempos. El moonwalk desafía la gravedad. El mundo nunca vuelve a ser igual.</p>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-card-icon">V</div>
+      <span class="timeline-card-date">2026 d.C.</span>
+      <h4>Samara Recibe Esta Carta</h4>
+      <p>Tras 72 millones de años, el universo finalmente logra lo que intentaba: que una maestra extraordinaria lea estas palabras.</p>
+    </div>
+  </div>
+  <div class="timeline-dots" id="timelineDots"></div>
+  <p class="timeline-scroll-hint">Desliza para explorar la historia</p>
+</section>
+
+<!-- ══════════ MINI-JUEGO DEL POLLITO ══════════ -->
+<section class="dinogame-section">
+  <p class="chapter-label">Bonus: El Juego</p>
+  <h2>Carrera del Pollito Cretácico</h2>
+  <p>Toca la pantalla para saltar los meteoritos. Sobrevive al impacto.</p>
+  <div class="dinogame-canvas-wrap">
+    <canvas id="dinoCanvas"></canvas>
+  </div>
+</section>
+
 <section class="scrapbook-section">
   <p class="chapter-label">Capítulo VII: El Álbum</p>
   <h2>Álbum de Recuerdos Polaroid</h2>
@@ -537,12 +628,40 @@
   </div>
 </div>
 
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <div class="lightbox-content" id="lightboxContent">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Anterior">&lsaquo;</button>
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Siguiente">&rsaquo;</button>
+    <div class="lightbox-image" id="lightboxImage"></div>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<!-- Carta Secreta Easter Egg -->
+<div class="secret-overlay" id="secretOverlay">
+  <div class="secret-scroll">
+    <h3>Mensaje Secreto</h3>
+    <p>Si encontraste esto, es porque tocaste las estrellas en el orden correcto.</p>
+    <p>Quiero que sepas que esta carta no fue solo un proyecto. Fue una forma de decirte lo que a veces las palabras no alcanzan a expresar en persona.</p>
+    <p>Eres una de esas personas que hace que el mundo tenga sentido. Gracias por existir, maestra.</p>
+    <p>-- Tu alumno que nunca dejo de aprender de ti.</p>
+    <button class="secret-close" id="secretClose">Cerrar</button>
+  </div>
+</div>
+
+<!-- Cursor Personalizado (solo desktop) -->
+<div class="custom-cursor" id="customCursor"></div>
+
 <!-- Scripts modularizados cargados localmente (sin CORS) -->
 <script src="js/particles.js"></script>
 <script src="js/music.js"></script>
 <script src="js/pizarron.js"></script>
 <script src="js/constellation.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/dinogame.js"></script>
+<script src="js/features.js"></script>
 <script src="js/envelope.js"></script>
 <script src="js/main.js"></script>
 </body>

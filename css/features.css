@@ -1,0 +1,795 @@
+/* ═══════════════════════════════════════════════════════════════
+   FEATURES.CSS — Estilos para las 10 features premium
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. PARALLAX HERO ────────────────────────────────────── */
+.hero [data-parallax-speed] {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* ─── 2. FIRMA MANUSCRITA ANIMADA ─────────────────────────── */
+.firma-svg-wrap {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.firma-svg-wrap svg {
+  width: clamp(180px, 40vw, 300px);
+  height: auto;
+}
+
+.firma-svg-wrap .firma-path {
+  fill: none;
+  stroke: var(--guinda);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: fill 0.8s ease 2.6s;
+}
+
+.firma-svg-wrap.animated .firma-path {
+  animation: firmaTrace 2.5s ease forwards;
+}
+
+.firma-svg-wrap.animated .firma-path-fill {
+  animation: firmaFill 0.8s ease 2.5s forwards;
+}
+
+@keyframes firmaTrace {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes firmaFill {
+  to { fill: var(--guinda); fill-opacity: 0.3; }
+}
+
+/* ─── 3. MODO DÍA/NOCHE ──────────────────────────────────── */
+.day-night-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--dorado);
+  background: rgba(253, 240, 232, 0.85);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 2px 12px rgba(123, 29, 58, 0.15);
+}
+
+.day-night-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 4px 20px rgba(123, 29, 58, 0.25);
+}
+
+/* Sol icon */
+.toggle-sun {
+  width: 20px;
+  height: 20px;
+  background: var(--dorado);
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 8px rgba(232, 201, 138, 0.6);
+}
+
+.toggle-sun::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px dashed var(--dorado);
+  opacity: 0.5;
+  animation: sunSpin 10s linear infinite;
+}
+
+@keyframes sunSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Luna icon (hidden by default, shown in night mode) */
+.toggle-moon {
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: inset -6px -2px 0 0 #E8D5F5;
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.5) rotate(-30deg);
+  transition: all 0.4s ease;
+}
+
+body.night-mode .toggle-sun {
+  opacity: 0;
+  transform: scale(0.3) rotate(90deg);
+}
+
+body.night-mode .toggle-moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+body.night-mode .day-night-toggle {
+  background: rgba(30, 30, 60, 0.85);
+  border-color: #E8D5F5;
+  box-shadow: 0 2px 12px rgba(232, 213, 245, 0.3);
+}
+
+/* Night mode global transitions */
+body {
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+body.night-mode {
+  background-color: #1a1a2e !important;
+  color: #E8D5F5 !important;
+}
+
+body.night-mode .hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+}
+
+body.night-mode .chapter-section,
+body.night-mode .book-section,
+body.night-mode .scrapbook-section,
+body.night-mode .quiz-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+body.night-mode .cierre {
+  background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%) !important;
+}
+
+body.night-mode h2, body.night-mode h3 {
+  color: #E8D5F5 !important;
+}
+
+body.night-mode p {
+  color: #c8b8d8 !important;
+}
+
+body.night-mode .chapter-label {
+  color: var(--dorado) !important;
+}
+
+body.night-mode .progress-bar {
+  background: linear-gradient(90deg, #E8D5F5, #E8C98A, #A63255) !important;
+}
+
+/* Luciérnagas */
+.firefly {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--dorado);
+  box-shadow: 0 0 8px 2px rgba(232, 201, 138, 0.6), 0 0 20px 4px rgba(232, 201, 138, 0.2);
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0;
+  animation: fireflyFloat var(--ff-dur, 5s) ease-in-out var(--ff-delay, 0s) infinite;
+}
+
+@keyframes fireflyFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  20% {
+    opacity: 0.9;
+    transform: translate(calc(var(--ff-dx, 30px)), calc(var(--ff-dy, -20px))) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(calc(var(--ff-dx, 30px) * -0.5), calc(var(--ff-dy, -20px) * 1.5)) scale(0.7);
+  }
+  80% {
+    opacity: 0.8;
+    transform: translate(calc(var(--ff-dx, 30px) * 0.8), calc(var(--ff-dy, -20px) * -0.8)) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+}
+
+/* ─── 4. CARTA SECRETA (EASTER EGG) ──────────────────────── */
+.secret-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(10, 5, 15, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  backdrop-filter: blur(6px);
+}
+
+.secret-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.secret-scroll {
+  background: linear-gradient(145deg, #FAF6EE, #F4EDE2);
+  border: 2px solid var(--dorado);
+  border-radius: 12px;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  max-width: min(480px, 90vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(232, 201, 138, 0.2);
+  transform: translateY(40px) scale(0.9);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.secret-overlay.visible .secret-scroll {
+  transform: translateY(0) scale(1);
+}
+
+.secret-scroll h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--guinda);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+.secret-scroll p {
+  font-family: 'Caveat', cursive;
+  color: var(--text-dark);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  line-height: 1.8;
+  margin-bottom: 0.8rem;
+}
+
+.secret-scroll .secret-close {
+  margin-top: 1.5rem;
+  background: var(--guinda);
+  color: var(--dorado);
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secret-scroll .secret-close:hover {
+  background: var(--guinda-light);
+  transform: scale(1.05);
+}
+
+/* ─── 5. LÍNEA DEL TIEMPO (SCROLL HORIZONTAL) ────────────── */
+.timeline-section {
+  padding: clamp(3rem, 8vw, 6rem) 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FAF6EE 0%, var(--lavanda) 100%);
+}
+
+body.night-mode .timeline-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+.timeline-section .chapter-label,
+.timeline-section h2 {
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.timeline-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  color: var(--guinda);
+  margin-bottom: 2rem;
+}
+
+.timeline-track {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: 1.5rem clamp(1.5rem, 6vw, 5rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.timeline-track::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-card {
+  flex: 0 0 clamp(240px, 65vw, 320px);
+  scroll-snap-align: center;
+  background: #FFFFFF;
+  border: 1px solid #E6DCD0;
+  border-radius: 16px;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  box-shadow: 0 8px 30px rgba(90, 18, 40, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.night-mode .timeline-card {
+  background: #1e1e3a;
+  border-color: #3a3a5c;
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--guinda), var(--dorado));
+  border-radius: 16px 16px 0 0;
+}
+
+.timeline-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(90, 18, 40, 0.15);
+}
+
+.timeline-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rosa) 0%, var(--lavanda) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--guinda);
+  font-family: 'Playfair Display', serif;
+  font-weight: bold;
+}
+
+.timeline-card-date {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dorado);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--guinda);
+  margin-bottom: 0.6rem;
+}
+
+body.night-mode .timeline-card h4 {
+  color: #E8D5F5;
+}
+
+.timeline-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #655546;
+}
+
+body.night-mode .timeline-card p {
+  color: #b0a0c0;
+}
+
+/* Timeline scroll dots */
+.timeline-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rosa);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.timeline-dot.active {
+  background: var(--guinda);
+  transform: scale(1.3);
+}
+
+/* Scroll hint animation */
+.timeline-scroll-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--guinda-light);
+  margin-top: 0.8rem;
+  animation: scrollHintPulse 2s ease-in-out infinite;
+  font-style: italic;
+}
+
+@keyframes scrollHintPulse {
+  0%, 100% { opacity: 0.4; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(-5px); }
+}
+
+/* ─── 6. MINI-JUEGO DEL POLLITO ──────────────────────────── */
+.dinogame-section {
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem);
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  text-align: center;
+}
+
+.dinogame-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  color: var(--dorado);
+  margin-bottom: 0.5rem;
+}
+
+.dinogame-section > p {
+  color: rgba(232, 201, 138, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.dinogame-canvas-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  border: 2px solid rgba(232, 201, 138, 0.2);
+}
+
+#dinoCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #2C3E50;
+}
+
+/* ─── 7. KARAOKE ─────────────────────────────────────────── */
+.karaoke-panel {
+  padding: 8px 12px;
+  background: rgba(123, 29, 58, 0.15);
+  border-radius: 8px;
+  margin-top: 8px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.karaoke-line {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--guinda);
+  text-align: center;
+  line-height: 1.3;
+  animation: karaokeReveal 0.4s ease forwards;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes karaokeReveal {
+  from { max-width: 0; opacity: 0.3; }
+  to { max-width: 400px; opacity: 1; }
+}
+
+/* ─── 8. LIGHTBOX GALERÍA ────────────────────────────────── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(10, 5, 15, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: min(500px, 92vw);
+  max-height: 80vh;
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+  transform: scale(0.85) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox-overlay.visible .lightbox-content {
+  transform: scale(1) translateY(0);
+}
+
+.lightbox-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #FAF6EE;
+}
+
+.lightbox-caption {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: var(--guinda);
+  background: #FAF6EE;
+  border-top: 1px solid #E6DCD0;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.lightbox-close:hover {
+  background: var(--guinda);
+  transform: rotate(90deg);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.lightbox-nav.prev { left: -56px; }
+.lightbox-nav.next { right: -56px; }
+
+@media (max-width: 640px) {
+  .lightbox-nav.prev { left: 8px; }
+  .lightbox-nav.next { right: 8px; }
+  .lightbox-nav {
+    width: 36px;
+    height: 36px;
+    background: rgba(0,0,0,0.4);
+  }
+}
+
+/* ─── Scrapbook horizontal scroll for mobile ─────────────── */
+.scrapbook-grid {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .scrapbook-grid {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem;
+    scrollbar-width: none;
+  }
+  .scrapbook-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .scrapbook-grid .polaroid-card {
+    flex: 0 0 clamp(220px, 70vw, 280px);
+    scroll-snap-align: center;
+  }
+}
+
+/* ─── 9. CONTADOR "DÍAS DESDE..." ────────────────────────── */
+.contador-section {
+  padding: 2rem clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.contador-wrap {
+  display: inline-flex;
+  gap: clamp(0.8rem, 3vw, 1.5rem);
+  background: linear-gradient(145deg, #FAF6EE, #F4EDE2);
+  border: 1.5px solid var(--dorado);
+  border-radius: 16px;
+  padding: clamp(1rem, 3vw, 1.8rem) clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 8px 30px rgba(90, 18, 40, 0.08);
+}
+
+body.night-mode .contador-wrap {
+  background: linear-gradient(145deg, #1e1e3a, #2a2a4a);
+  border-color: #E8D5F5;
+}
+
+.contador-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.contador-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 700;
+  color: var(--guinda);
+  line-height: 1;
+  min-width: 2ch;
+  transition: transform 0.2s ease;
+}
+
+body.night-mode .contador-num {
+  color: var(--dorado);
+}
+
+.contador-num.pulse {
+  animation: counterPulse 0.3s ease;
+}
+
+@keyframes counterPulse {
+  50% { transform: scale(1.15); }
+}
+
+.contador-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--guinda-light);
+  font-weight: 700;
+}
+
+body.night-mode .contador-label {
+  color: #b0a0c0;
+}
+
+.contador-separator {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: var(--dorado);
+  align-self: flex-start;
+  margin-top: 0.2rem;
+  opacity: 0.6;
+}
+
+.contador-desc {
+  margin-top: 1rem;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--guinda-light);
+  font-style: italic;
+}
+
+body.night-mode .contador-desc {
+  color: #c8b8d8;
+}
+
+/* ─── 10. CURSOR PERSONALIZADO ───────────────────────────── */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999999;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-cursor.active {
+  opacity: 1;
+}
+
+/* Huellita de pollo dibujada con CSS */
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--guinda);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: var(--guinda);
+  top: calc(50% + 4px);
+  left: 50%;
+  transform: translate(-50%, 0);
+  box-shadow:
+    -4px -2px 0 var(--guinda),
+    4px -2px 0 var(--guinda);
+  border-radius: 1px;
+}
+
+.custom-cursor.click {
+  animation: cursorClick 0.15s ease;
+}
+
+@keyframes cursorClick {
+  50% { transform: translate(-50%, -50%) scale(1.5); }
+}
+
+.cursor-trail-dot {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--dorado);
+  pointer-events: none;
+  z-index: 999998;
+  opacity: 0.7;
+  animation: trailFade 0.4s ease forwards;
+}
+
+@keyframes trailFade {
+  to { opacity: 0; transform: scale(0.3); }
+}

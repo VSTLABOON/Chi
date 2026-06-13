@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof initPizarron === 'function') initPizarron();
   if (typeof initConstellation === 'function') initConstellation();
   if (typeof initQuiz === 'function') initQuiz();
+  if (typeof initDinoGame === 'function') initDinoGame();
+  if (typeof initFeatures === 'function') initFeatures();
   
   // Initialize particle systems
   if (typeof initHeroParticles === 'function') initHeroParticles();

@@ -10,6 +10,9 @@ function initConstellation() {
     "✦ Quinta estrella: El mapa estelar perfecto que siempre me guía de vuelta a ti."
   ];
 
+  const targetSequence = [0, 2, 1, 4, 3];
+  let clickedSequence = [];
+
   if (constellationMessage) {
     constellationMessage.style.transition = 'opacity 0.25s ease';
   }
@@ -30,6 +33,40 @@ function initConstellation() {
           constellationMessage.style.opacity = '1';
         }, 150);
       }
+
+      // Track sequence for the Easter Egg
+      clickedSequence.push(index);
+      if (clickedSequence.length > targetSequence.length) {
+        clickedSequence.shift();
+      }
+
+      if (clickedSequence.length === targetSequence.length &&
+          clickedSequence.every((val, i) => val === targetSequence[i])) {
+        // Trigger secret overlay
+        const secretOverlay = document.getElementById('secretOverlay');
+        if (secretOverlay) {
+          secretOverlay.classList.add('visible');
+        }
+        clickedSequence = [];
+      }
     });
   });
+
+  // Setup secret overlay close logic
+  const secretOverlay = document.getElementById('secretOverlay');
+  const secretClose = document.getElementById('secretClose');
+  if (secretOverlay) {
+    if (secretClose) {
+      secretClose.addEventListener('click', () => {
+        secretOverlay.classList.remove('visible');
+      });
+    }
+    // Also close on click outside the container
+    secretOverlay.addEventListener('click', (e) => {
+      if (e.target === secretOverlay) {
+        secretOverlay.classList.remove('visible');
+      }
+    });
+  }
 }
+
