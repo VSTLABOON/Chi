@@ -71,52 +71,18 @@
   box-shadow: 0 4px 20px rgba(123, 29, 58, 0.25);
 }
 
-/* Sol icon */
-.toggle-sun {
+.day-night-toggle svg {
   width: 20px;
   height: 20px;
-  background: var(--dorado);
-  border-radius: 50%;
-  position: relative;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 8px rgba(232, 201, 138, 0.6);
+  stroke: var(--dorado);
+  stroke-width: 2.2px;
+  fill: none;
+  transition: transform 0.4s ease, stroke 0.4s ease;
 }
 
-.toggle-sun::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px dashed var(--dorado);
-  opacity: 0.5;
-  animation: sunSpin 10s linear infinite;
-}
-
-@keyframes sunSpin {
-  to { transform: rotate(360deg); }
-}
-
-/* Luna icon (hidden by default, shown in night mode) */
-.toggle-moon {
-  width: 18px;
-  height: 18px;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: inset -6px -2px 0 0 #E8D5F5;
-  position: absolute;
-  opacity: 0;
-  transform: scale(0.5) rotate(-30deg);
-  transition: all 0.4s ease;
-}
-
-body.night-mode .toggle-sun {
-  opacity: 0;
-  transform: scale(0.3) rotate(90deg);
-}
-
-body.night-mode .toggle-moon {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
+body.night-mode .day-night-toggle svg {
+  stroke: #E8D5F5;
+  transform: rotate(360deg);
 }
 
 body.night-mode .day-night-toggle {

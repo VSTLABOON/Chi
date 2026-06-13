@@ -28,6 +28,56 @@ const questions = [
     ],
     correct: 0,
     correctFeedback: "¡Sí! 'I wanna rock with you, all night...' Tu mirada café alegra cualquier día del Cretácico."
+  },
+  {
+    question: "¿Cuál de estos icónicos pasos de Michael Jackson desafía más la gravedad y la física escolar?",
+    options: [
+      "El Moonwalk (caminata lunar)",
+      "El Lean de 45 grados en 'Smooth Criminal'",
+      "El giro de 360 grados sobre las puntas"
+    ],
+    correct: 1,
+    correctFeedback: "¡Espectacular! Esa inclinación de 45 grados es legendaria y desafía las leyes físicas, igual que tu energía alegra el día más gris."
+  },
+  {
+    question: "Si un asteroide prehistórico cayera hoy cerca del colegio, ¿cuál sería la reacción de Samara?",
+    options: [
+      "Correr en círculos y cacarear como un pollito asustado",
+      "Calmar a todos con una sonrisa y pedir que anoten la caída del meteorito como tarea de ciencias",
+      "Esconderse en el casillero más cercano"
+    ],
+    correct: 1,
+    correctFeedback: "¡Definitivamente! Tu templanza, liderazgo y carisma son a prueba de cataclismos mesozoicos."
+  },
+  {
+    question: "¿Cuál es considerado el dinosaurio más inteligente y con más estilo del Cretácico?",
+    options: [
+      "El Triceratops, por sus elegantes cuernos",
+      "El T-Rex, aunque tenga brazos cortitos",
+      "El Velociraptor, por su rapidez mental y brillo astuto"
+    ],
+    correct: 2,
+    correctFeedback: "¡Por supuesto! Inteligente, audaz y con mucha chispa... ¡igual que la maestra favorita del salón!"
+  },
+  {
+    question: "Si Samara fuera un elemento de la tabla periódica, ¿cuál la representaría mejor?",
+    options: [
+      "El Helio, porque nos hace flotar de felicidad",
+      "El Oro, por su brillo único, valor incalculable y elegancia eterna",
+      "El Carbono, porque está en todas partes"
+    ],
+    correct: 1,
+    correctFeedback: "¡Oro puro! Valiosa, excepcional y con una luz propia que no se oxida jamás."
+  },
+  {
+    question: "En el juego del pollito corredor, ¿por qué esquivamos meteoritos con tanto empeño?",
+    options: [
+      "Porque queremos entregarle una tarea perfecta a la maestra Samara",
+      "Porque los meteoritos son de lava ardiente",
+      "Porque el pollito tiene miedo"
+    ],
+    correct: 0,
+    correctFeedback: "¡Totalmente! No hay obstáculo espacial capaz de detener a un pollito dedicado a su maestra preferida."
   }
 ];
 

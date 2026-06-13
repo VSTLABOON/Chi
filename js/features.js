@@ -48,61 +48,17 @@
         transform: scale(0.95);
       }
 
-      /* Sun icon */
-      .toggle-sun {
+      #dayNightToggle svg {
         width: 20px;
         height: 20px;
-        position: relative;
+        stroke: ${DORADO};
+        stroke-width: 2.2px;
+        fill: none;
+        transition: transform 0.4s ease, stroke 0.4s ease;
       }
-      .toggle-sun__core {
-        width: 10px;
-        height: 10px;
-        background: ${DORADO};
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .toggle-sun__ray {
-        position: absolute;
-        width: 2px;
-        height: 5px;
-        background: ${DORADO};
-        border-radius: 1px;
-        top: 50%;
-        left: 50%;
-      }
-      .toggle-sun__ray:nth-child(2) { transform: translate(-50%,-50%) rotate(0deg)   translateY(-9px); }
-      .toggle-sun__ray:nth-child(3) { transform: translate(-50%,-50%) rotate(45deg)  translateY(-9px); }
-      .toggle-sun__ray:nth-child(4) { transform: translate(-50%,-50%) rotate(90deg)  translateY(-9px); }
-      .toggle-sun__ray:nth-child(5) { transform: translate(-50%,-50%) rotate(135deg) translateY(-9px); }
-      .toggle-sun__ray:nth-child(6) { transform: translate(-50%,-50%) rotate(180deg) translateY(-9px); }
-      .toggle-sun__ray:nth-child(7) { transform: translate(-50%,-50%) rotate(225deg) translateY(-9px); }
-      .toggle-sun__ray:nth-child(8) { transform: translate(-50%,-50%) rotate(270deg) translateY(-9px); }
-      .toggle-sun__ray:nth-child(9) { transform: translate(-50%,-50%) rotate(315deg) translateY(-9px); }
-
-      /* Moon icon */
-      .toggle-moon {
-        width: 18px;
-        height: 18px;
-        position: relative;
-      }
-      .toggle-moon__body {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: ${DORADO};
-        position: relative;
-      }
-      .toggle-moon__shadow {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: ${GUINDA};
-        position: absolute;
-        top: -2px;
-        right: -4px;
+      body.night-mode #dayNightToggle svg {
+        stroke: #E8D5F5;
+        transform: rotate(360deg);
       }
 
       /* Night mode body overrides */
@@ -501,20 +457,11 @@
   var fireflies = [];
 
   function createSunIcon() {
-    var html = '<div class="toggle-sun">' +
-               '<div class="toggle-sun__core"></div>';
-    for (var i = 0; i < 8; i++) {
-      html += '<div class="toggle-sun__ray"></div>';
-    }
-    html += '</div>';
-    return html;
+    return '<i data-lucide="sun"></i>';
   }
 
   function createMoonIcon() {
-    return '<div class="toggle-moon">' +
-           '<div class="toggle-moon__body">' +
-           '<div class="toggle-moon__shadow"></div>' +
-           '</div></div>';
+    return '<i data-lucide="moon"></i>';
   }
 
   function spawnFireflies() {
@@ -559,6 +506,9 @@
         toggle.setAttribute('title', 'Cambiar a modo noche');
         toggle.setAttribute('aria-label', 'Cambiar a modo noche');
         removeFireflies();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }
 
