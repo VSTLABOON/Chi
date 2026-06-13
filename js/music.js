@@ -297,12 +297,28 @@ function initMusic() {
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     musicPlayer.classList.toggle('open');
+    
+    const dayNightToggle = document.getElementById('dayNightToggle');
+    if (dayNightToggle) {
+      if (musicPlayer.classList.contains('open')) {
+        dayNightToggle.style.opacity = '0';
+        dayNightToggle.style.pointerEvents = 'none';
+      } else {
+        dayNightToggle.style.opacity = '1';
+        dayNightToggle.style.pointerEvents = 'auto';
+      }
+    }
   });
 
   // Close panel on outside click
   document.addEventListener('click', (e) => {
     if (!musicPlayer.contains(e.target)) {
       musicPlayer.classList.remove('open');
+      const dayNightToggle = document.getElementById('dayNightToggle');
+      if (dayNightToggle) {
+        dayNightToggle.style.opacity = '1';
+        dayNightToggle.style.pointerEvents = 'auto';
+      }
     }
   });
 

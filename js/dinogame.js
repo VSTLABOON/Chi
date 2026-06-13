@@ -147,13 +147,15 @@ function initDinoGame() {
     specialShown = false;
     specialTimer = 0;
     spawnTimer = 0;
-    spawnInterval = 90;
+    spawnInterval = 140;
     gameSpeed = BASE_SPEED;
     initClouds();
     initGroundRocks();
   }
 
   /* ---- input ---- */
+  var isHoldingJump = false;
+
   function jump() {
     if (gameOver) {
       resetGame();
@@ -167,14 +169,19 @@ function initDinoGame() {
     }
   }
 
-  canvas.addEventListener('click', function (e) {
+  canvas.addEventListener('pointerdown', function (e) {
     e.preventDefault();
+    isHoldingJump = true;
     jump();
   });
-  canvas.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    jump();
-  }, { passive: false });
+
+  window.addEventListener('pointerup', function (e) {
+    isHoldingJump = false;
+  });
+
+  window.addEventListener('pointercancel', function (e) {
+    isHoldingJump = false;
+  });
 
   /* ---- drawing helpers ---- */
   function drawRoundRect(x, y, w, h, r) {
@@ -473,13 +480,20 @@ function initDinoGame() {
     if (gameSpeed > 12) gameSpeed = 12;
 
     /* chicken physics */
-    chicken.vy += GRAVITY * scale;
+    var currentGravity = GRAVITY;
+    if (isHoldingJump && chicken.vy < 0) {
+      currentGravity = GRAVITY * 0.45; // reduced gravity when holding click/touch
+    }
+    chicken.vy += currentGravity * scale;
     chicken.y += chicken.vy;
 
     if (chicken.y >= chickenBottom - chicken.h * scale) {
       chicken.y = chickenBottom - chicken.h * scale;
       chicken.vy = 0;
       chicken.grounded = true;
+      if (isHoldingJump) {
+        jump(); // auto-jump again on landing if still holding
+      }
     }
 
     /* leg animation */
@@ -498,7 +512,7 @@ function initDinoGame() {
     if (spawnTimer >= spawnInterval) {
       spawnTimer = 0;
       spawnMeteor();
-      spawnInterval = Math.max(50, 120 - score * 0.2 + randInt(-15, 15));
+      spawnInterval = Math.max(85, 160 - score * 0.15 + randInt(-20, 20));
     }
 
     /* move meteorites */
